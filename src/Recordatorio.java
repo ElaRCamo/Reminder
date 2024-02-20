@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
@@ -17,7 +18,6 @@ public class Recordatorio extends JFrame {
     JTextField autorText;
     private JLabel iconTip;
     static Connection connection;
-    PreparedStatement ps; //para INSERT TO
     Statement st; //para SELECT
     ResultSet r; //ejecutar query
     static String reminderDescription;
@@ -87,8 +87,20 @@ public class Recordatorio extends JFrame {
     }*/
 
     public Recordatorio() {
+
+        reminderPanel.setBorder(new EmptyBorder(20, 20, 10, 20));
         phraseText.setLineWrap(true);
         phraseText.setWrapStyleWord(true);
+        phraseText.setEditable(false); //Para que no se pueda editar el texto
+        phraseText.setOpaque(false);
+
+        // Configurar alineación del contenido en el JTextArea
+        phraseText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        phraseText.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        autorText.setEditable(false);
+        autorText.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,38 +154,41 @@ public class Recordatorio extends JFrame {
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
-        mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(6, 5, new Insets(0, 0, 0, 0), -1, -1));
+        mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(6, 4, new Insets(0, 0, 0, 0), -1, -1));
         mainPanel.setBackground(new Color(-1384230));
         mainPanel.setMaximumSize(new Dimension(480, 480));
         mainPanel.setMinimumSize(new Dimension(480, 480));
         tipsButton = new JButton();
-        tipsButton.setBackground(new Color(-1387547));
+        tipsButton.setBackground(new Color(-7192));
         tipsButton.setBorderPainted(false);
         Font tipsButtonFont = this.$$$getFont$$$("Segoe Script", Font.BOLD, 20, tipsButton.getFont());
         if (tipsButtonFont != null) tipsButton.setFont(tipsButtonFont);
-        tipsButton.setForeground(new Color(-14477559));
+        tipsButton.setForeground(new Color(-12572912));
         tipsButton.setText("Tips");
         mainPanel.add(tipsButton, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(200, 50), null, new Dimension(200, 50), 0, false));
         toDoButton = new JButton();
-        toDoButton.setBackground(new Color(-1387547));
+        toDoButton.setBackground(new Color(-7192));
         toDoButton.setBorderPainted(false);
         Font toDoButtonFont = this.$$$getFont$$$("Segoe Script", Font.BOLD, 20, toDoButton.getFont());
         if (toDoButtonFont != null) toDoButton.setFont(toDoButtonFont);
-        toDoButton.setForeground(new Color(-14477559));
+        toDoButton.setForeground(new Color(-12572912));
         toDoButton.setText("To do");
-        mainPanel.add(toDoButton, new com.intellij.uiDesigner.core.GridConstraints(4, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(200, 50), null, new Dimension(200, 50), 0, false));
+        mainPanel.add(toDoButton, new com.intellij.uiDesigner.core.GridConstraints(4, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(200, 50), null, new Dimension(200, 50), 0, false));
         reminderPanel = new JPanel();
         reminderPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         reminderPanel.setBackground(new Color(-1));
-        mainPanel.add(reminderPanel, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(350, 265), new Dimension(350, 265), new Dimension(350, 265), 1, false));
+        mainPanel.add(reminderPanel, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 1, true));
         final JLabel label1 = new JLabel();
         label1.setBackground(new Color(-1));
         Font label1Font = this.$$$getFont$$$("Segoe Script", Font.BOLD, 22, label1.getFont());
         if (label1Font != null) label1.setFont(label1Font);
         label1.setForeground(new Color(-14477559));
-        label1.setText("✦ R E M I N D E R ✦");
-        reminderPanel.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(310, -1), new Dimension(360, 40), new Dimension(310, 40), 0, false));
+        label1.setHorizontalAlignment(0);
+        label1.setHorizontalTextPosition(0);
+        label1.setText("R E M I N D E R ");
+        reminderPanel.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(380, -1), new Dimension(-1, 40), new Dimension(-1, 40), 0, false));
         phraseText = new JTextArea();
+        phraseText.setAlignmentX(0.0f);
         phraseText.setBackground(new Color(-1));
         Font phraseTextFont = this.$$$getFont$$$("Segoe Print", Font.PLAIN, 14, phraseText.getFont());
         if (phraseTextFont != null) phraseText.setFont(phraseTextFont);
@@ -181,7 +196,7 @@ public class Recordatorio extends JFrame {
         phraseText.setLineWrap(true);
         phraseText.setText("");
         phraseText.setWrapStyleWord(true);
-        reminderPanel.add(phraseText, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(280, 100), new Dimension(360, 100), new Dimension(280, 100), 0, false));
+        reminderPanel.add(phraseText, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(380, -1), null, null, 0, false));
         autorText = new JTextField();
         autorText.setAlignmentX(0.0f);
         autorText.setAlignmentY(0.0f);
@@ -189,30 +204,30 @@ public class Recordatorio extends JFrame {
         Font autorTextFont = this.$$$getFont$$$("Segoe Print", Font.PLAIN, 16, autorText.getFont());
         if (autorTextFont != null) autorText.setFont(autorTextFont);
         autorText.setText("");
-        reminderPanel.add(autorText, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(280, 30), new Dimension(360, 30), new Dimension(280, 30), 0, false));
+        reminderPanel.add(autorText, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(380, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         okButton = new JButton();
         okButton.setBackground(new Color(-1));
-        Font okButtonFont = this.$$$getFont$$$("ItalicC", Font.BOLD, 18, okButton.getFont());
+        Font okButtonFont = this.$$$getFont$$$("ItalicC", Font.BOLD, 14, okButton.getFont());
         if (okButtonFont != null) okButton.setFont(okButtonFont);
-        okButton.setForeground(new Color(-14477559));
+        okButton.setForeground(new Color(-4014119));
         okButton.setText("Ok!");
-        reminderPanel.add(okButton, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(280, 30), new Dimension(360, 30), new Dimension(280, 30), 0, false));
+        reminderPanel.add(okButton, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(380, 30), new Dimension(-1, 30), new Dimension(-1, 30), 0, false));
         iconTip = new JLabel();
         iconTip.setHorizontalAlignment(0);
         iconTip.setHorizontalTextPosition(0);
-        iconTip.setIcon(new ImageIcon(getClass().getResource("/estrella.png")));
+        iconTip.setIcon(new ImageIcon(getClass().getResource("/sparkle.png")));
         iconTip.setText("");
-        mainPanel.add(iconTip, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(90, 90), new Dimension(90, 90), new Dimension(90, 90), 1, false));
+        mainPanel.add(iconTip, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(90, 90), new Dimension(90, 90), new Dimension(90, 90), 1, false));
         final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(5, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 30), null, 0, false));
+        mainPanel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer2 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer2, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, new Dimension(-1, 30), 0, false));
+        mainPanel.add(spacer2, new com.intellij.uiDesigner.core.GridConstraints(2, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer3 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer3, new com.intellij.uiDesigner.core.GridConstraints(2, 4, 4, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(15, -1), null, 0, false));
+        mainPanel.add(spacer3, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer4 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer4, new com.intellij.uiDesigner.core.GridConstraints(3, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 15), null, 0, false));
+        mainPanel.add(spacer4, new com.intellij.uiDesigner.core.GridConstraints(5, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer5 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer5, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        mainPanel.add(spacer5, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         label1.setLabelFor(autorText);
     }
 

@@ -1,6 +1,8 @@
 import com.sun.deploy.panel.RuleSetViewerDialog;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import java.sql.SQLException;
 
 public class Main extends JFrame{
