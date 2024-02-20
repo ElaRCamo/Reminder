@@ -4,7 +4,7 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Locale;
 
 public class Tip extends JFrame {
@@ -16,6 +16,9 @@ public class Tip extends JFrame {
     private JButton btTip;
     private JButton bnReminder;
     private JButton btToDo;
+    static Connection connection;
+    PreparedStatement ps; //para INSERT TO
+    Statement st; //para SELECT
 
 
     public Tip() {
@@ -51,6 +54,49 @@ public class Tip extends JFrame {
                 recordatorio.okButton.setBorder(BorderFactory.createEmptyBorder());
             }
         });
+
+        btSaveTip.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String tip = textTip.getText();
+                System.out.println(tip);
+                try (Connection connection = Tip.conectar()) {
+                    assert connection != null;
+                    try (Statement st = connection.createStatement()) {
+                        PreparedStatement ps = connection.prepareStatement("INSERT INTO Tip(descriptionTip) VALUES(?)");
+                        ps.setString(1, tip);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Tip guardado exitosamente");//null se refiere a la posicion del msj
+                        textTip.setText("");//Para que el espacio quede vacio
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("No se pudo guardar :( ");
+                    JOptionPane.showMessageDialog(null, e.toString());
+                }
+            }
+
+        });
+    }
+
+    private static Connection conectar() {
+        // Información de conexión a tu base de datos SQL Server
+        String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
+        String user = "sa";
+        String password = "Grammer1";
+        try {
+            // Cargar el controlador JDBC
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            // Establecer la conexión
+            //Connection connection = DriverManager.getConnection(url, user, password);
+            connection = DriverManager.getConnection(url, user, password);
+            System.out.println("Conexión exitosa");
+            // Devolver la conexión
+            return connection;
+        } catch (ClassNotFoundException | SQLException e) {
+            // Manejar errores de conexión
+            e.printStackTrace();
+            return null; // Retorna null en caso de error
+        }
     }
 
     {
