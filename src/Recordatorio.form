@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Recordatorio">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="6" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="155" y="93" width="626" height="556"/>
+      <xy x="32" y="12" width="879" height="663"/>
     </constraints>
     <properties>
       <background color="-1384230"/>
@@ -15,39 +15,40 @@
       <component id="496f1" class="javax.swing.JButton" binding="tipsButton">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="200" height="40"/>
-            <maximum-size width="200" height="40"/>
+            <minimum-size width="200" height="50"/>
+            <maximum-size width="200" height="50"/>
           </grid>
         </constraints>
         <properties>
           <background color="-1387547"/>
           <borderPainted value="false"/>
-          <font name="Italic" size="18" style="1"/>
+          <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-14477559"/>
           <text value="Tips"/>
         </properties>
       </component>
       <component id="532ba" class="javax.swing.JButton" binding="toDoButton">
         <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="200" height="40"/>
-            <maximum-size width="200" height="40"/>
+          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="200" height="50"/>
+            <maximum-size width="200" height="50"/>
           </grid>
         </constraints>
         <properties>
           <background color="-1387547"/>
           <borderPainted value="false"/>
-          <font name="ItalicC" size="18" style="1"/>
+          <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-14477559"/>
           <text value="To do"/>
         </properties>
       </component>
-      <grid id="f0fc9" binding="reminderPanel" layout-manager="GridLayoutManager" row-count="7" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="f0fc9" binding="reminderPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="1" use-parent-layout="false">
-            <preferred-size width="420" height="265"/>
-            <maximum-size width="420" height="265"/>
+          <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="false">
+            <minimum-size width="350" height="265"/>
+            <preferred-size width="350" height="265"/>
+            <maximum-size width="350" height="265"/>
           </grid>
         </constraints>
         <properties>
@@ -55,148 +56,120 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="b9072" class="javax.swing.JTextArea" binding="phraseText">
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                <minimum-size width="390" height="-1"/>
-                <preferred-size width="-1" height="100"/>
-                <maximum-size width="390" height="100"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <font name="ItalicC" size="20" style="2"/>
-              <foreground color="-14477559"/>
-              <text value=""/>
-            </properties>
-          </component>
           <component id="d457d" class="javax.swing.JLabel">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="-1" height="40"/>
-                <maximum-size width="390" height="40"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="310" height="-1"/>
+                <preferred-size width="360" height="40"/>
+                <maximum-size width="310" height="40"/>
               </grid>
             </constraints>
             <properties>
               <background color="-1"/>
-              <font name="Dutch801 Rm BT" size="26" style="3"/>
+              <font name="Segoe Script" size="22" style="1"/>
               <foreground color="-14477559"/>
               <labelFor value="e5833"/>
               <text value="✦ R E M I N D E R ✦"/>
             </properties>
           </component>
-          <hspacer id="79020">
+          <component id="b9072" class="javax.swing.JTextArea" binding="phraseText">
             <constraints>
-              <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <minimum-size width="15" height="-1"/>
-                <maximum-size width="15" height="-1"/>
-              </grid>
-            </constraints>
-          </hspacer>
-          <hspacer id="c396d">
-            <constraints>
-              <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </hspacer>
-          <component id="c8519" class="javax.swing.JButton" binding="okButton">
-            <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <minimum-size width="420" height="40"/>
-                <preferred-size width="420" height="40"/>
-                <maximum-size width="420" height="40"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="280" height="100"/>
+                <preferred-size width="360" height="100"/>
+                <maximum-size width="280" height="100"/>
               </grid>
             </constraints>
             <properties>
               <background color="-1"/>
-              <font name="ItalicC" size="20" style="1"/>
-              <foreground color="-14477559"/>
-              <text value="Ok!"/>
+              <font name="Segoe Print" size="14" style="0"/>
+              <foreground color="-7895909"/>
+              <lineWrap value="true"/>
+              <text value=""/>
+              <wrapStyleWord value="true"/>
             </properties>
           </component>
           <component id="e5833" class="javax.swing.JTextField" binding="autorText">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="4" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <minimum-size width="390" height="40"/>
-                <preferred-size width="390" height="40"/>
-                <maximum-size width="390" height="40"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="280" height="30"/>
+                <preferred-size width="360" height="30"/>
+                <maximum-size width="280" height="30"/>
               </grid>
             </constraints>
             <properties>
               <alignmentX value="0.0"/>
               <alignmentY value="0.0"/>
               <background color="-1"/>
-              <font name="Bradley Hand ITC" size="20" style="1"/>
+              <font name="Segoe Print" size="16" style="0"/>
               <text value=""/>
             </properties>
           </component>
-          <vspacer id="b02d7">
+          <component id="c8519" class="javax.swing.JButton" binding="okButton">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                <maximum-size width="-1" height="15"/>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="280" height="30"/>
+                <preferred-size width="360" height="30"/>
+                <maximum-size width="280" height="30"/>
               </grid>
             </constraints>
-          </vspacer>
-          <vspacer id="28f90">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                <maximum-size width="-1" height="10"/>
-              </grid>
-            </constraints>
-          </vspacer>
+            <properties>
+              <background color="-1"/>
+              <font name="ItalicC" size="18" style="1"/>
+              <foreground color="-14477559"/>
+              <text value="Ok!"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <vspacer id="49b3a">
+      <component id="b09df" class="javax.swing.JLabel" binding="iconTip">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="false">
+            <minimum-size width="90" height="90"/>
+            <preferred-size width="90" height="90"/>
+            <maximum-size width="90" height="90"/>
+          </grid>
+        </constraints>
+        <properties>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <icon value="estrella.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <vspacer id="dd5d0">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="30"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <vspacer id="2cc83">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <maximum-size width="-1" height="30"/>
           </grid>
         </constraints>
       </vspacer>
-      <vspacer id="eb4b1">
+      <hspacer id="5bcab">
+        <constraints>
+          <grid row="2" column="4" row-span="4" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="15" height="-1"/>
+          </grid>
+        </constraints>
+      </hspacer>
+      <vspacer id="b1309">
         <constraints>
           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-            <maximum-size width="-1" height="15"/>
+            <preferred-size width="-1" height="15"/>
           </grid>
         </constraints>
       </vspacer>
-      <hspacer id="91043">
+      <hspacer id="832f6">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <maximum-size width="30" height="-1"/>
-          </grid>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <hspacer id="af2a1">
-        <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <maximum-size width="30" height="-1"/>
-          </grid>
-        </constraints>
-      </hspacer>
-      <component id="cd5a7" class="javax.swing.JLabel" binding="icon">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
-            <minimum-size width="115" height="115"/>
-            <preferred-size width="115" height="115"/>
-            <maximum-size width="95" height="95"/>
-          </grid>
-        </constraints>
-        <properties>
-          <foreground color="-16777216"/>
-          <horizontalAlignment value="10"/>
-          <icon value="estrella.png"/>
-          <labelFor value="b9072"/>
-          <text value=""/>
-          <visible value="true"/>
-        </properties>
-      </component>
-      <vspacer id="18f43">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-            <maximum-size width="-1" height="30"/>
-          </grid>
-        </constraints>
-      </vspacer>
     </children>
   </grid>
 </form>

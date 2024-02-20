@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Tip">
-  <grid id="27dc6" binding="panelTip" layout-manager="GridLayoutManager" row-count="6" column-count="14" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panelTip" layout-manager="GridLayoutManager" row-count="7" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="82" y="47" width="498" height="523"/>
     </constraints>
     <properties>
       <font name="Bradley Hand ITC" size="20" style="1"/>
-      <foreground color="-1384230"/>
+      <foreground color="-1387547"/>
     </properties>
     <border type="none"/>
     <children>
       <grid id="77d3e" layout-manager="GridLayoutManager" row-count="7" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="10" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-1"/>
@@ -31,7 +31,7 @@
             <properties>
               <background color="-1"/>
               <borderPainted value="false"/>
-              <font name="Bradley Hand ITC" size="20" style="1"/>
+              <font name="Segoe Script" size="20" style="1"/>
               <foreground color="-6205467"/>
               <text value="Save"/>
             </properties>
@@ -45,7 +45,7 @@
             <properties>
               <background color="-1"/>
               <borderPainted value="false"/>
-              <font name="Bradley Hand ITC" size="20" style="1"/>
+              <font name="Segoe Script" size="20" style="1"/>
               <foreground color="-6205467"/>
               <text value="Consult"/>
             </properties>
@@ -59,7 +59,7 @@
             </constraints>
             <properties>
               <background color="-1"/>
-              <font name="Italic" size="16" style="0"/>
+              <font name="Segoe Print" size="16" style="1"/>
               <foreground color="-14477559"/>
               <text value="Tip para tu yo del futuro..."/>
             </properties>
@@ -73,8 +73,8 @@
             </constraints>
             <properties>
               <background color="-1387547"/>
-              <font name="Bradley Hand ITC" size="16" style="0"/>
-              <foreground color="-6205467"/>
+              <font name="Segoe Print" size="18" style="1"/>
+              <foreground color="-14477559"/>
             </properties>
           </component>
           <vspacer id="8e89e">
@@ -123,28 +123,28 @@
       </hspacer>
       <vspacer id="42e25">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="12" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="15" height="-1"/>
           </grid>
         </constraints>
       </vspacer>
       <component id="ac9e9" class="javax.swing.JButton" binding="bnReminder">
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="7" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="165" height="40"/>
           </grid>
         </constraints>
         <properties>
           <background color="-1387547"/>
           <borderPainted value="false"/>
-          <font name="Italic" size="15" style="1"/>
+          <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-14477559"/>
           <text value="Reminder"/>
         </properties>
       </component>
       <component id="e2a92" class="javax.swing.JLabel" binding="iconTip">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="10" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="false">
+          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="false">
             <minimum-size width="95" height="95"/>
             <preferred-size width="95" height="95"/>
             <maximum-size width="95" height="95"/>
@@ -153,45 +153,50 @@
         <properties>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <icon value="logo.png"/>
+          <icon value="estrella.png"/>
           <text value=""/>
         </properties>
       </component>
       <component id="5392d" class="javax.swing.JButton" binding="btToDo">
         <constraints>
-          <grid row="4" column="10" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="165" height="40"/>
           </grid>
         </constraints>
         <properties>
           <background color="-1387547"/>
           <borderPainted value="false"/>
-          <font name="Italic" size="15" style="1"/>
+          <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-14477559"/>
           <text value="To Do"/>
         </properties>
       </component>
       <vspacer id="b617f">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="12" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="6" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="30"/>
           </grid>
         </constraints>
       </vspacer>
       <vspacer id="88e7d">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="12" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="30"/>
           </grid>
         </constraints>
       </vspacer>
       <hspacer id="b667a">
         <constraints>
-          <grid row="3" column="11" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="30" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
+      <vspacer id="fb56">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
     </children>
   </grid>
 </form>
