@@ -14,7 +14,7 @@ public class Main extends JFrame{
             Recordatorio recordatorio = new Recordatorio();
             recordatorio.setContentPane(recordatorio.mainPanel);
             recordatorio.setTitle("R E M I N D E R");
-            recordatorio.setSize(480,480);
+            recordatorio.setSize(500,500);
             recordatorio.setVisible(true);
             recordatorio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             recordatorio.setLocationRelativeTo(null);
