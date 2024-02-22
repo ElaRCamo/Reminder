@@ -44,6 +44,28 @@ public class Recordatorio extends JFrame {
         }
     }
 
+    public static void consultarRecordatorios() throws SQLException {
+        Recordatorio recordatorio = new Recordatorio();
+        recordatorio.setContentPane(recordatorio.mainPanel);
+        recordatorio.setTitle("R E M I N D E R");
+        recordatorio.setSize(500, 500);
+        recordatorio.setVisible(true);
+        recordatorio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        recordatorio.setLocationRelativeTo(null);
+        recordatorio.setResizable(false);
+        //mandar reminder y autor
+        String[] reminderValues = Recordatorio.consultaReminder(1);
+        String reminderDescription = reminderValues[0];
+        String autorReminder = reminderValues[1];
+        recordatorio.phraseText.setText(reminderDescription);
+        recordatorio.autorText.setText(autorReminder);
+        //Quitar bordes
+        recordatorio.phraseText.setBorder(BorderFactory.createEmptyBorder());
+        recordatorio.autorText.setBorder(BorderFactory.createEmptyBorder());
+        recordatorio.okButton.setBorder(BorderFactory.createEmptyBorder());
+    }
+
+
     public static int numRegistros() throws SQLException {
         try (Connection connection = conectar()) {
             assert connection != null;
@@ -121,13 +143,11 @@ public class Recordatorio extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Recordatorio.this.setVisible(false);
-                Tip newTip = new Tip();
-                newTip.setContentPane(newTip.panelTip);
-                newTip.setTitle("Save a tip");
-                newTip.setSize(500, 500);
-                newTip.setVisible(true);
-                newTip.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                newTip.setLocationRelativeTo(null);
+                try {
+                    Tip.guardarTips();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

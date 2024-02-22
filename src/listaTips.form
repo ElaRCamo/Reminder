@@ -102,7 +102,7 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-1387547"/>
+          <background color="-7192"/>
           <font name="Segoe Script" size="20" style="1"/>
           <text value="Reminder"/>
         </properties>
@@ -114,7 +114,7 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-1387547"/>
+          <background color="-7192"/>
           <font name="Segoe Script" size="20" style="1"/>
           <text value="To Do"/>
         </properties>

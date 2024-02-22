@@ -24,6 +24,16 @@ public class Tip extends JFrame {
     ResultSet r; //ejecutar query
     DefaultListModel mod = new DefaultListModel();
 
+    public static void guardarTips() throws SQLException {
+        Tip newTip = new Tip();
+        newTip.setContentPane(newTip.panelTip);
+        newTip.setTitle("Save a tip");
+        newTip.setSize(500, 500);
+        newTip.setVisible(true);
+        newTip.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        newTip.setLocationRelativeTo(null);
+    }
+
 
     public Tip() {
         saveTipPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -34,28 +44,11 @@ public class Tip extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tip.this.setVisible(false);
-                Recordatorio recordatorio = new Recordatorio();
-                recordatorio.setContentPane(recordatorio.mainPanel);
-                recordatorio.setTitle("R E M I N D E R");
-                recordatorio.setSize(500, 500);
-                recordatorio.setVisible(true);
-                recordatorio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                recordatorio.setLocationRelativeTo(null);
-                //mandar reminder y autor
-                String[] reminderValues = new String[0];
                 try {
-                    reminderValues = Recordatorio.consultaReminder(1);
+                    Recordatorio.consultarRecordatorios();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                String reminderDescription = reminderValues[0];
-                String autorReminder = reminderValues[1];
-                recordatorio.phraseText.setText(reminderDescription);
-                recordatorio.autorText.setText(autorReminder);
-                //Quitar bordes
-                recordatorio.phraseText.setBorder(BorderFactory.createEmptyBorder());
-                recordatorio.autorText.setBorder(BorderFactory.createEmptyBorder());
-                recordatorio.okButton.setBorder(BorderFactory.createEmptyBorder());
             }
         });
 

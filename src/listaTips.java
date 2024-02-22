@@ -3,6 +3,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Locale;
 
 public class listaTips extends JFrame {
@@ -22,6 +25,16 @@ public class listaTips extends JFrame {
         reminderButton.setBorder(BorderFactory.createEmptyBorder());
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());
+        reminderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Recordatorio.consultarRecordatorios();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
     }
 
     {
@@ -82,13 +95,13 @@ public class listaTips extends JFrame {
         final com.intellij.uiDesigner.core.Spacer spacer4 = new com.intellij.uiDesigner.core.Spacer();
         tablaPanel.add(spacer4, new com.intellij.uiDesigner.core.GridConstraints(4, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         reminderButton = new JButton();
-        reminderButton.setBackground(new Color(-1387547));
+        reminderButton.setBackground(new Color(-7192));
         Font reminderButtonFont = this.$$$getFont$$$("Segoe Script", Font.BOLD, 20, reminderButton.getFont());
         if (reminderButtonFont != null) reminderButton.setFont(reminderButtonFont);
         reminderButton.setText("Reminder");
         listPanel.add(reminderButton, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(200, 50), null, null, 0, false));
         toDoButton = new JButton();
-        toDoButton.setBackground(new Color(-1387547));
+        toDoButton.setBackground(new Color(-7192));
         Font toDoButtonFont = this.$$$getFont$$$("Segoe Script", Font.BOLD, 20, toDoButton.getFont());
         if (toDoButtonFont != null) toDoButton.setFont(toDoButtonFont);
         toDoButton.setText("To Do");
