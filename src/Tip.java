@@ -83,8 +83,16 @@ public class Tip extends JFrame {
         btConsultTip.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Tip.this.setVisible(false);
+                listaTips newListaTip = new listaTips();
+                newListaTip.setContentPane(newListaTip.listPanel);
+                newListaTip.setTitle("Tips guardados");
+                newListaTip.setSize(500, 500);
+                newListaTip.setVisible(true);
+                newListaTip.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                newListaTip.setLocationRelativeTo(null);
 
-                /*try (Connection connection = Tip.conectar()) {
+                 /*try (Connection connection = Tip.conectar()) {
                     assert connection != null;
                     try (Statement st = connection.createStatement()) {
                         saveTipPanel.setModel(mod);
@@ -185,7 +193,7 @@ public class Tip extends JFrame {
         final com.intellij.uiDesigner.core.Spacer spacer2 = new com.intellij.uiDesigner.core.Spacer();
         saveTipPanel.add(spacer2, new com.intellij.uiDesigner.core.GridConstraints(0, 4, 4, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(15, -1), null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer3 = new com.intellij.uiDesigner.core.Spacer();
-        saveTipPanel.add(spacer3, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 7, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(15, -1), null, null, 0, false));
+        saveTipPanel.add(spacer3, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 4, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(15, -1), null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer4 = new com.intellij.uiDesigner.core.Spacer();
         saveTipPanel.add(spacer4, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer5 = new com.intellij.uiDesigner.core.Spacer();

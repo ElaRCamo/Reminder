@@ -92,7 +92,6 @@ public class Recordatorio extends JFrame {
         phraseText.setLineWrap(true);
         phraseText.setWrapStyleWord(true);
         phraseText.setEditable(false); //Para que no se pueda editar el texto
-        phraseText.setOpaque(false);
 
         // Configurar alineación del contenido en el JTextArea
         phraseText.setAlignmentX(Component.CENTER_ALIGNMENT);
