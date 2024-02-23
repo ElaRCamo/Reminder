@@ -1,12 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.Locale;
 
 public class Tip extends JFrame {
     public JPanel panelTip;
@@ -56,7 +52,7 @@ public class Tip extends JFrame {
     }
 
     public static void verTips() throws SQLException {
-        listaTips newTip = new listaTips();
+        ListaTips newTip = new ListaTips();
         newTip.setContentPane(newTip.listPanel);
         newTip.setTitle("tips Guardados");
         newTip.setSize(500, 500);

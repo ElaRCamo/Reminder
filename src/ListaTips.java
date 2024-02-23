@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class listaTips extends JFrame {
+public class ListaTips extends JFrame {
     public JPanel listPanel;
     private JLabel listaLabel;
     private JButton toDoButton;
@@ -40,7 +40,7 @@ public class listaTips extends JFrame {
         lisTip.setModel(modeloLista);
         String sql= "SELECT descriptionTip FROM Tip;";
         //System.out.println(sql);
-        try (Connection connection = listaTips.conectar()) {
+        try (Connection connection = ListaTips.conectar()) {
             assert connection != null;
             try (Statement st = connection.createStatement()) {
                 ResultSet rs = st.executeQuery(sql);
@@ -54,7 +54,7 @@ public class listaTips extends JFrame {
         }
     }
 
-    public listaTips() {
+    public ListaTips() {
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         //Quitar bordes
         toDoButton.setBorder(BorderFactory.createEmptyBorder());
@@ -70,7 +70,7 @@ public class listaTips extends JFrame {
         reminderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listaTips.this.setVisible(false);
+                ListaTips.this.setVisible(false);
                 try {
                     Recordatorio.consultarRecordatorios();
                 } catch (SQLException ex) {
@@ -82,7 +82,7 @@ public class listaTips extends JFrame {
         nuevoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listaTips.this.setVisible(false);
+                ListaTips.this.setVisible(false);
                 try {
                     Tip.guardarTips();
                 } catch (SQLException ex) {
