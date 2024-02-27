@@ -33,6 +33,7 @@
             <properties>
               <background color="-1"/>
               <borderPainted value="false"/>
+              <focusPainted value="false"/>
               <font name="Segoe Script" size="20" style="1"/>
               <foreground color="-3555399"/>
               <text value="Save"/>
@@ -47,6 +48,7 @@
             <properties>
               <background color="-1"/>
               <borderPainted value="false"/>
+              <focusPainted value="false"/>
               <font name="Segoe Script" size="20" style="1"/>
               <foreground color="-3555399"/>
               <text value="Consult"/>
@@ -122,6 +124,7 @@
         <properties>
           <background color="-7192"/>
           <borderPainted value="false"/>
+          <focusPainted value="false"/>
           <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-14477559"/>
           <text value="Reminder"/>
@@ -151,6 +154,7 @@
         <properties>
           <background color="-7192"/>
           <borderPainted value="false"/>
+          <focusPainted value="false"/>
           <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-14477559"/>
           <text value="To Do"/>
@@ -182,6 +186,22 @@
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
+      <component id="8323d" class="javax.swing.JButton" binding="xButton" default-binding="true">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <maximum-size width="50" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-1384230"/>
+          <borderPainted value="false"/>
+          <focusPainted value="false"/>
+          <font name="Segoe Print" size="22" style="1"/>
+          <foreground color="-3555399"/>
+          <horizontalAlignment value="4"/>
+          <text value="x"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

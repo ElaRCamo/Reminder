@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 
 public class ListaTips extends JFrame {
@@ -13,6 +15,7 @@ public class ListaTips extends JFrame {
     private JButton eliminarButton;
     private JPanel tablaPanel;
     public JList lisTip;
+    private JButton xButton;
     DefaultListModel modeloLista = new DefaultListModel();
 
     public static Connection conectar() {
@@ -54,6 +57,38 @@ public class ListaTips extends JFrame {
         }
     }
 
+    public void eliminarTip() throws SQLException {
+        int indice = lisTip.getSelectedIndex();
+
+        if (indice == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un elemento para eliminar.");
+            return;
+        }
+
+        String elementoSeleccionado = modeloLista.getElementAt(indice).toString();
+        String sqlSelect = "SELECT TOP 1 idTip FROM Tip WHERE descriptionTip ='"+elementoSeleccionado+"';";
+        System.out.println(sqlSelect);
+
+        try (Connection connection = ListaTips.conectar()) {
+            assert connection != null;
+            try (Statement st = connection.createStatement()) {
+                ResultSet rs = st.executeQuery(sqlSelect);
+                rs.next();
+                int idSeleccionado = rs.getInt(1);
+
+                String sqlDelete = "DELETE FROM Tip WHERE idTip = " + idSeleccionado + ";";
+                System.out.println(sqlSelect);
+                st.executeUpdate(sqlDelete);
+                modeloLista.removeElementAt(indice);
+                JOptionPane.showMessageDialog(null, "Tip eliminado exitosamente");
+            }
+        } catch (SQLException ex) {
+            System.out.println("No se pudo eliminar :( ");
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+    }
+
+
     public ListaTips() {
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         //Quitar bordes
@@ -61,6 +96,8 @@ public class ListaTips extends JFrame {
         reminderButton.setBorder(BorderFactory.createEmptyBorder());
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());
+        setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
         try {
             cargarTips();
@@ -85,6 +122,23 @@ public class ListaTips extends JFrame {
                 ListaTips.this.setVisible(false);
                 try {
                     Tip.guardarTips();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    eliminarTip();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

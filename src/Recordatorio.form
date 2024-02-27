@@ -21,6 +21,7 @@
         <properties>
           <background color="-7192"/>
           <borderPainted value="false"/>
+          <focusPainted value="false"/>
           <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-12572912"/>
           <text value="Tips"/>
@@ -35,6 +36,7 @@
         <properties>
           <background color="-7192"/>
           <borderPainted value="false"/>
+          <focusPainted value="false"/>
           <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-12572912"/>
           <text value="To do"/>
@@ -112,6 +114,7 @@
             </constraints>
             <properties>
               <background color="-1"/>
+              <focusPainted value="false"/>
               <font name="ItalicC" size="14" style="1"/>
               <foreground color="-4014119"/>
               <text value="Ok!"/>
@@ -163,6 +166,22 @@
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
+      <component id="e0040" class="javax.swing.JButton" binding="xButton" default-binding="true">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <maximum-size width="50" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-1384230"/>
+          <borderPainted value="false"/>
+          <focusPainted value="false"/>
+          <font name="Segoe Print" size="22" style="1"/>
+          <foreground color="-3555399"/>
+          <horizontalAlignment value="4"/>
+          <text value="x"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

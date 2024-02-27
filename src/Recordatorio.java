@@ -1,12 +1,9 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.Locale;
 
 public class Recordatorio extends JFrame {
     JButton okButton;
@@ -17,6 +14,7 @@ public class Recordatorio extends JFrame {
     JPanel mainPanel;
     JTextField autorText;
     private JLabel iconTip;
+    private JButton xButton;
     static Connection connection;
     public Statement st; //para SELECT
     ResultSet r; //ejecutar query
@@ -118,6 +116,9 @@ public class Recordatorio extends JFrame {
         autorText.setEditable(false);
         autorText.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
+        setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -144,6 +145,12 @@ public class Recordatorio extends JFrame {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
+            }
+        });
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }

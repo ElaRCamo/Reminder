@@ -14,6 +14,7 @@ public class Tip extends JFrame {
     private JButton bnReminder;
     private JButton btToDo;
     private JPanel saveTipPanel;
+    private JButton xButton;
     static Connection connection;
     PreparedStatement ps; //para INSERT TO
     Statement st; //para SELECT
@@ -86,6 +87,8 @@ public class Tip extends JFrame {
         saveTipPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         textTip.setLineWrap(true);
         textTip.setWrapStyleWord(true);
+        setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
         bnReminder.addActionListener(new ActionListener() {
             @Override
@@ -119,6 +122,12 @@ public class Tip extends JFrame {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
+            }
+        });
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }
