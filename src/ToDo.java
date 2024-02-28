@@ -77,6 +77,8 @@ public class ToDo extends JFrame{
         reminderButton.setBorder(BorderFactory.createEmptyBorder());
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());
+
+        //Para quitar el borde donde se ubica el tittle
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 

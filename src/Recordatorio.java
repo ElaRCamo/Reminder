@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
+import static com.sun.deploy.trace.TraceLevel.UI;
+import static javax.swing.UIManager.getIcon;
+
 public class Recordatorio extends JFrame {
     JButton okButton;
     private JButton toDoButton;
@@ -19,6 +22,8 @@ public class Recordatorio extends JFrame {
     public Statement st; //para SELECT
     ResultSet r; //ejecutar query
     static String reminderDescription;
+    private String path;
+
 
 
     public static Connection conectar() {
@@ -122,7 +127,13 @@ public class Recordatorio extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(okButton, "Be happy!!!");
+                ImageIcon icon = new ImageIcon("C:\\Users\\Ex-Reyes-M\\IdeaProjects\\Reminder\\src\\carita_feliz.png");
+                UIManager.put("OptionPane.background", new Color(234,224,218));
+                UIManager.put("Panel.background", new Color(234,224,218));
+                UIManager.put("OptionPane.messageFont", new Font("Segoe Script", Font.BOLD,20));
+                UIManager.put("OptionPane.messageForeground", new Color(64,39,16));
+
+                JOptionPane.showMessageDialog(okButton, " Be happy!!!", "",JOptionPane.PLAIN_MESSAGE, icon);
 
                 String[] reminderValues = new String[0];
                 try {
@@ -136,6 +147,25 @@ public class Recordatorio extends JFrame {
                 autorText.setText(autorReminder);
             }
         });
+
+       /* public ImageIcon getIcon(String path) {
+            try {
+                URL resource = getClass().getResource(path);
+                if (resource != null) {
+                    return new ImageIcon(resource);
+                } else {
+                    System.err.println("Resource not found: " + path);
+                    return null;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }*/
+
+// Luego puedes usarlo en tu código principal:
+
+
         tipsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
