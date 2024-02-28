@@ -144,6 +144,13 @@ public class ListaTips extends JFrame {
                 }
             }
         });
+        toDoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ListaTips.this.setVisible(false);
+                ToDo.gestionarListaTareas();
+            }
+        });
     }
 
 }

@@ -141,7 +141,7 @@ public class Recordatorio extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Recordatorio.this.setVisible(false);
                 try {
-                    Tip.guardarTips();
+                    Tip.verTips();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -151,6 +151,13 @@ public class Recordatorio extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+        toDoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Recordatorio.this.setVisible(false);
+                ToDo.gestionarListaTareas();
             }
         });
     }

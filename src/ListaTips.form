@@ -28,7 +28,7 @@
             <properties>
               <font name="Segoe Print" size="16" style="1"/>
               <foreground color="-12572912"/>
-              <text value="Tips guardados:"/>
+              <text value="Saved tips:"/>
             </properties>
           </component>
           <component id="fd041" class="javax.swing.JButton" binding="eliminarButton" default-binding="true">
@@ -43,7 +43,7 @@
               <focusPainted value="false"/>
               <font name="Segoe Script" size="20" style="1"/>
               <foreground color="-3555399"/>
-              <text value="Eliminar"/>
+              <text value="Delete"/>
             </properties>
           </component>
           <vspacer id="58523">
@@ -76,7 +76,7 @@
               <focusPainted value="false"/>
               <font name="Segoe Script" size="20" style="1"/>
               <foreground color="-3555399"/>
-              <text value="Nuevo"/>
+              <text value="New"/>
             </properties>
           </component>
           <vspacer id="8076a">
@@ -93,6 +93,7 @@
             </constraints>
             <properties>
               <background color="-1384230"/>
+              <focusable value="false"/>
               <font name="Segoe Print" size="14" style="0"/>
               <foreground color="-13754359"/>
               <selectionBackground color="-3555399"/>

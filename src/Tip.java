@@ -130,6 +130,13 @@ public class Tip extends JFrame {
                 System.exit(0);
             }
         });
+        btToDo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tip.this.setVisible(false);
+                ToDo.gestionarListaTareas();
+            }
+        });
     }
 
 }
