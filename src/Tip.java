@@ -60,6 +60,7 @@ public class Tip extends JFrame {
         newTip.setVisible(true);
         newTip.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newTip.setLocationRelativeTo(null);
+        newTip.setResizable(false);
     }
 
     public void  guardarTip() throws SQLException{
@@ -134,7 +135,11 @@ public class Tip extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tip.this.setVisible(false);
-                ToDo.gestionarListaTareas();
+                try {
+                    ToDo.gestionarListaTareas();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

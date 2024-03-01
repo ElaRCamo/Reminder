@@ -104,7 +104,7 @@
                 <properties>
                   <autoCreateRowSorter value="true"/>
                   <background color="-1384230"/>
-                  <enabled value="false"/>
+                  <enabled value="true"/>
                   <focusable value="false"/>
                   <font name="Segoe Print" size="12" style="0"/>
                   <foreground color="-12572912"/>
@@ -206,4 +206,7 @@
       </grid>
     </children>
   </grid>
+  <inspectionSuppressions>
+    <suppress inspection="NoScrollPane"/>
+  </inspectionSuppressions>
 </form>

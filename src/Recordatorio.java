@@ -68,7 +68,6 @@ public class Recordatorio extends JFrame {
         recordatorio.okButton.setBorder(BorderFactory.createEmptyBorder());
     }
 
-
     public static int numRegistros() throws SQLException {
         try (Connection connection = conectar()) {
             assert connection != null;
@@ -82,8 +81,6 @@ public class Recordatorio extends JFrame {
             }
         }
     }
-//linewipe
-    //wrapStyleWord
 
     public static String[] consultaReminder(int i) throws SQLException {
         try (Connection connection = conectar()) {
@@ -148,24 +145,6 @@ public class Recordatorio extends JFrame {
             }
         });
 
-       /* public ImageIcon getIcon(String path) {
-            try {
-                URL resource = getClass().getResource(path);
-                if (resource != null) {
-                    return new ImageIcon(resource);
-                } else {
-                    System.err.println("Resource not found: " + path);
-                    return null;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }*/
-
-// Luego puedes usarlo en tu código principal:
-
-
         tipsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -187,7 +166,13 @@ public class Recordatorio extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Recordatorio.this.setVisible(false);
-                ToDo.gestionarListaTareas();
+                try {
+                    ToDo.gestionarListaTareas();
+                    System.out.println("Se ejecuta el try");
+                } catch (SQLException ex) {
+                    System.out.println("Se ejecuta el catch");
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

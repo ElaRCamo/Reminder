@@ -1,14 +1,16 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+
+import static javax.swing.UIManager.getString;
 
 public class ToDo extends JFrame{
-    private JPanel toDoPanel;
+    public JPanel toDoPanel;
     private JPanel tablaPanel;
     private JLabel listaLabel;
     private JButton eliminarButton;
@@ -16,11 +18,12 @@ public class ToDo extends JFrame{
     private JButton reminderButton;
     private JButton tipsButton;
     private JButton xButton;
-    private JTable TableToDo;
+    public JTable TableToDo;
     private JLabel index;
     private JTextField taskName;
     private JButton done;
     private boolean checked;
+
 
     public static Connection conectar() {
         String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
@@ -37,40 +40,102 @@ public class ToDo extends JFrame{
         }
     }
 
-    void Tarea() {
-        this.setPreferredSize(new Dimension(40, 20));
-        this.setBackground(Color.red);
-        this.setLayout(new BorderLayout());
-
-        checked = false;
-
-        index = new JLabel("");
-        index.setPreferredSize((new Dimension(20, 20)));
-        index.setHorizontalAlignment(JLabel.CENTER);
-        this.add(index, BorderFactory.createEmptyBorder());
-        taskName.setBackground(Color.green);
-
-        this.add(taskName, BorderLayout.CENTER);
-
-        done = new JButton("done");
-        done.setPreferredSize(new Dimension(40, 20));
-        done.setBorder(BorderFactory.createEmptyBorder());
-
-        this.add(done, BorderLayout.EAST);
+    public static void gestionarListaTareas() throws SQLException {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                ToDo toDo = new ToDo();
+                toDo.setContentPane(toDo.toDoPanel);
+                toDo.setSize(500, 500);
+                toDo.setVisible(true);
+                toDo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                toDo.setLocationRelativeTo(null);
+                toDo.setResizable(false);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
-    public static void gestionarListaTareas(){
+   /* public void consultarTareas() throws SQLException {
+        TableToDo.setModel(modeloTabla);
+        String sql="SELECT descriptionToDo, done FROM ToDo";
+        try (Connection connection = conectar()) {
+            assert connection != null;
+            try (Statement st = connection.createStatement()) {
+                ResultSet rs = st.executeQuery(sql);
+                modeloTabla.setRowCount(0);// Limpiar la tabla
 
-        ToDo toDo = new ToDo();
-        toDo.setContentPane(toDo.toDoPanel);
-        toDo.setSize(500, 500);
-        toDo.setVisible(true);
-        toDo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        toDo.setLocationRelativeTo(null);
-        toDo.setResizable(false);
-    }
+                while (rs.next()) {
+                    String descripcion = rs.getString("descriptionToDo");
+                    int done = rs.getInt("done");
+                    System.out.println("Descripción: " + descripcion + ", Done: " + done);
+                    // Agregar una fila al modelo de la tabla
+                    modeloTabla.addRow(new Object[]{descripcion, done});
 
-    public ToDo(){
+                }
+            }
+        }catch (SQLException ex) {
+            System.out.println("No se puede mostrar :( ");
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+    }*/
+  /* public void consultarTareas() throws SQLException {
+       String sql="SELECT descriptionToDo, done FROM ToDo";
+       System.out.println(sql);
+       try (Connection connection = conectar()) {
+           assert connection != null;
+           try (Statement st = connection.createStatement()) {
+               DefaultTableModel modeloTabla = new DefaultTableModel();
+               modeloTabla.addColumn("Task");
+               modeloTabla.addColumn("Done");
+               TableToDo.setModel(modeloTabla);
+               ResultSet rs = st.executeQuery(sql);
+
+               String [] datos = new String[2];
+               while (rs.next()) {
+                   datos[0] = getString(1);
+                   datos[1] = getString(2);
+                   System.out.println(datos);
+                   modeloTabla.addRow(datos);
+               }
+           }
+       }catch (SQLException ex) {
+           System.out.println("No se puede mostrar :( ");
+           JOptionPane.showMessageDialog(null, ex.toString());
+       }
+   }*/
+   public void consultarTareas() throws SQLException {
+       String sql = "SELECT descriptionToDo, done FROM ToDo";
+       System.out.println(sql);
+
+       try (Connection connection = conectar()) {
+           assert connection != null;
+
+           try (Statement st = connection.createStatement()) {
+               DefaultTableModel modeloTabla = new DefaultTableModel();
+               modeloTabla.addColumn("Task");
+               modeloTabla.addColumn("Done");
+               TableToDo.setModel(modeloTabla);
+               ResultSet rs = st.executeQuery(sql);
+
+               while (rs.next()) {
+                   String tarea = rs.getString("descriptionToDo");
+                   int hecho = rs.getInt("done");
+
+                   System.out.println("Tarea: " + tarea + ", Hecho: " + hecho);
+
+                   modeloTabla.addRow(new String[]{tarea, String.valueOf(hecho)});
+               }
+           }
+       } catch (SQLException ex) {
+           System.out.println("No se puede mostrar :( ");
+           JOptionPane.showMessageDialog(null, ex.toString());
+       }
+   }
+
+
+
+    public ToDo() throws SQLException {
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         //Quitar bordes
         tipsButton.setBorder(BorderFactory.createEmptyBorder());
@@ -78,9 +143,17 @@ public class ToDo extends JFrame{
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());
 
+
+
         //Para quitar el borde donde se ubica el tittle
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+
+        try {
+            consultarTareas();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         reminderButton.addActionListener(new ActionListener() {
             @Override

@@ -96,6 +96,7 @@
               <focusable value="false"/>
               <font name="Segoe Print" size="14" style="0"/>
               <foreground color="-13754359"/>
+              <model/>
               <selectionBackground color="-3555399"/>
               <selectionForeground color="-12572912"/>
             </properties>

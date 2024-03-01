@@ -148,7 +148,11 @@ public class ListaTips extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ListaTips.this.setVisible(false);
-                ToDo.gestionarListaTareas();
+                try {
+                    ToDo.gestionarListaTareas();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
