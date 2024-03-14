@@ -1,7 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.sql.*;
 
 public class Tip extends JFrame {
@@ -20,6 +20,7 @@ public class Tip extends JFrame {
     Statement st; //para SELECT
     ResultSet r; //ejecutar query
     DefaultListModel mod = new DefaultListModel();
+   int x, y;
 
     public static Connection conectar() {
         // Información de conexión a tu base de datos SQL Server

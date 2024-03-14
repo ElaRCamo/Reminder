@@ -42,7 +42,7 @@
               <component id="9337d" class="javax.swing.JButton" binding="eliminarButton" default-binding="true">
                 <constraints>
                   <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                    <minimum-size width="170" height="40"/>
+                    <minimum-size width="85" height="40"/>
                   </grid>
                 </constraints>
                 <properties>
@@ -74,22 +74,6 @@
                   </grid>
                 </constraints>
               </hspacer>
-              <component id="f8f28" class="javax.swing.JButton" binding="nuevoButton" default-binding="true">
-                <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                    <minimum-size width="170" height="40"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <actionCommand value=""/>
-                  <background color="-1"/>
-                  <focusPainted value="false"/>
-                  <font name="Segoe Script" size="20" style="1"/>
-                  <foreground color="-3555399"/>
-                  <label value="Add"/>
-                  <text value="Add"/>
-                </properties>
-              </component>
               <vspacer id="e996f">
                 <constraints>
                   <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
@@ -111,6 +95,39 @@
                   <gridColor color="-3555399"/>
                   <selectionBackground color="-3555399"/>
                   <selectionForeground color="-13754359"/>
+                </properties>
+              </component>
+              <component id="f8f28" class="javax.swing.JButton" binding="nuevoButton" default-binding="true">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="85" height="40"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value=""/>
+                  <background color="-1"/>
+                  <focusPainted value="false"/>
+                  <font name="Segoe Script" size="20" style="1"/>
+                  <foreground color="-3555399"/>
+                  <label value="Add"/>
+                  <text value="Add"/>
+                </properties>
+              </component>
+              <component id="d5a49" class="javax.swing.JButton" binding="actualizarButton">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="40"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value=""/>
+                  <background color="-1"/>
+                  <borderPainted value="false"/>
+                  <focusPainted value="false"/>
+                  <font name="Segoe Script" size="20" style="1"/>
+                  <foreground color="-3555399"/>
+                  <label value="Actualizar"/>
+                  <text value="Actualizar"/>
                 </properties>
               </component>
             </children>

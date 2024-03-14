@@ -19,6 +19,7 @@ public class ToDo extends JFrame{
     private JButton tipsButton;
     private JButton xButton;
     public JTable TableToDo;
+    private JButton actualizarButton;
     private JLabel index;
     private JTextField taskName;
     private JButton done;
@@ -56,54 +57,6 @@ public class ToDo extends JFrame{
         });
     }
 
-   /* public void consultarTareas() throws SQLException {
-        TableToDo.setModel(modeloTabla);
-        String sql="SELECT descriptionToDo, done FROM ToDo";
-        try (Connection connection = conectar()) {
-            assert connection != null;
-            try (Statement st = connection.createStatement()) {
-                ResultSet rs = st.executeQuery(sql);
-                modeloTabla.setRowCount(0);// Limpiar la tabla
-
-                while (rs.next()) {
-                    String descripcion = rs.getString("descriptionToDo");
-                    int done = rs.getInt("done");
-                    System.out.println("Descripción: " + descripcion + ", Done: " + done);
-                    // Agregar una fila al modelo de la tabla
-                    modeloTabla.addRow(new Object[]{descripcion, done});
-
-                }
-            }
-        }catch (SQLException ex) {
-            System.out.println("No se puede mostrar :( ");
-            JOptionPane.showMessageDialog(null, ex.toString());
-        }
-    }*/
-  /* public void consultarTareas() throws SQLException {
-       String sql="SELECT descriptionToDo, done FROM ToDo";
-       System.out.println(sql);
-       try (Connection connection = conectar()) {
-           assert connection != null;
-           try (Statement st = connection.createStatement()) {
-               DefaultTableModel modeloTabla = new DefaultTableModel();
-               modeloTabla.addColumn("Task");
-               modeloTabla.addColumn("Done");
-               TableToDo.setModel(modeloTabla);
-               ResultSet rs = st.executeQuery(sql);
-
-               String [] datos = new String[2];
-               while (rs.next()) {
-                   datos[0] = getString(1);
-                   datos[1] = getString(2);
-                   System.out.println(datos);
-                   modeloTabla.addRow(datos);
-               }
-           }
-       }catch (SQLException ex) {
-           System.out.println("No se puede mostrar :( ");
-           JOptionPane.showMessageDialog(null, ex.toString());
-       }
-   }*/
    public void consultarTareas() throws SQLException {
        String sql = "SELECT descriptionToDo, done FROM ToDo";
        System.out.println(sql);
@@ -132,6 +85,31 @@ public class ToDo extends JFrame{
            JOptionPane.showMessageDialog(null, ex.toString());
        }
    }
+    public void actualizarTareas() throws SQLException {
+        //identificar fila seleccionada
+        int fila = TableToDo.getSelectedRow();
+
+        String tarea = TableToDo.getValueAt(fila, 0).toString();
+        int hecho = Integer.parseInt(this.TableToDo.getValueAt(fila, 1).toString());
+
+        String sql = "UPDATE ToDo SET descriptionToDo='" + tarea + "', done ='" + hecho + "' WHERE idToDo =2";
+        System.out.println(sql);
+
+
+        try (Connection connection = conectar()) {
+            assert connection != null;
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.executeUpdate();
+                consultarTareas();
+
+            } catch (SQLException ex) {
+                System.out.println("No se puede actualizar :( ");
+                JOptionPane.showMessageDialog(null, ex.toString());
+            }
+        }
+
+    }
 
 
 
@@ -189,6 +167,16 @@ public class ToDo extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+        actualizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    actualizarTareas();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
