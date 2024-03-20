@@ -56,60 +56,102 @@ public class ToDo extends JFrame{
             }
         });
     }
-
-   public void consultarTareas() throws SQLException {
-       String sql = "SELECT descriptionToDo, done FROM ToDo";
-       System.out.println(sql);
-
-       try (Connection connection = conectar()) {
-           assert connection != null;
-
-           try (Statement st = connection.createStatement()) {
-               DefaultTableModel modeloTabla = new DefaultTableModel();
-               modeloTabla.addColumn("Task");
-               modeloTabla.addColumn("Done");
-               TableToDo.setModel(modeloTabla);
-               ResultSet rs = st.executeQuery(sql);
-
-               while (rs.next()) {
-                   String tarea = rs.getString("descriptionToDo");
-                   int hecho = rs.getInt("done");
-
-                   System.out.println("Tarea: " + tarea + ", Hecho: " + hecho);
-
-                   modeloTabla.addRow(new String[]{tarea, String.valueOf(hecho)});
-               }
-           }
-       } catch (SQLException ex) {
-           System.out.println("No se puede mostrar :( ");
-           JOptionPane.showMessageDialog(null, ex.toString());
-       }
-   }
-    public void actualizarTareas() throws SQLException {
-        //identificar fila seleccionada
-        int fila = TableToDo.getSelectedRow();
-
-        String tarea = TableToDo.getValueAt(fila, 0).toString();
-        int hecho = Integer.parseInt(this.TableToDo.getValueAt(fila, 1).toString());
-
-        String sql = "UPDATE ToDo SET descriptionToDo='" + tarea + "', done ='" + hecho + "' WHERE idToDo =2";
+    public void consultarTareas() throws SQLException {
+        String sql = "SELECT idToDo, descriptionToDo, done FROM ToDo";
         System.out.println(sql);
 
+        try (Connection connection = conectar()) {
+            assert connection != null;
+
+            try (Statement st = connection.createStatement()) {
+                DefaultTableModel modeloTabla = new DefaultTableModel();
+                modeloTabla.addColumn("ID");
+                modeloTabla.addColumn("Task");
+                modeloTabla.addColumn("Done");
+                TableToDo.setModel(modeloTabla);
+                ResultSet rs = st.executeQuery(sql);
+
+                while (rs.next()) {
+                    int idTarea = rs.getInt("idToDo");
+                    String tarea = rs.getString("descriptionToDo");
+                    int hecho = rs.getInt("done");
+
+                    System.out.println("ID: " + idTarea + ", Tarea: " + tarea + ", Hecho: " + hecho);
+
+                    modeloTabla.addRow(new String[]{String.valueOf(idTarea), tarea, String.valueOf(hecho)});
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("No se puede mostrar :( ");
+            JOptionPane.showMessageDialog(null, ex.toString());
+        }
+    }
+
+
+    public void actualizarTareas() throws SQLException {
+        // Identificar fila seleccionada
+        int fila = TableToDo.getSelectedRow();
+        System.out.println("Fila: " + fila);
+
+        String tarea = TableToDo.getValueAt(fila, 1).toString(); // Índice 1 porque la primera columna ahora es el ID
+        int hecho = Integer.parseInt(this.TableToDo.getValueAt(fila, 2).toString()); // Índice 2 para el estado
+
+        String sql = "UPDATE ToDo SET descriptionToDo=?, done=? WHERE idToDo=?";
 
         try (Connection connection = conectar()) {
             assert connection != null;
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, tarea);
+                ps.setInt(2, hecho);
+
+                // Aquí obtenemos el ID de la tarea directamente de la tabla
+                int idTarea = Integer.parseInt(this.TableToDo.getValueAt(fila, 0).toString()); // Índice 0 para el ID
+                ps.setInt(3, idTarea);
+
                 ps.executeUpdate();
                 consultarTareas();
-
             } catch (SQLException ex) {
                 System.out.println("No se puede actualizar :( ");
                 JOptionPane.showMessageDialog(null, ex.toString());
             }
         }
-
     }
+
+    /*public void actualizarTareas() throws SQLException {
+        // Identificar fila seleccionada
+        int fila = TableToDo.getSelectedRow();
+        System.out.println("Fila: " + fila);
+
+        String tarea = TableToDo.getValueAt(fila, 0).toString();
+        int hecho = Integer.parseInt(this.TableToDo.getValueAt(fila, 1).toString());
+
+        String sql = "UPDATE ToDo SET descriptionToDo=?, done=? WHERE idToDo=?";
+        System.out.println(sql);
+
+        try (Connection connection = conectar()) {
+            assert connection != null;
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, tarea);
+                System.out.println("Tarea seleccionada: " + tarea);
+                ps.setInt(2, hecho);
+                System.out.println("Hecho seleccionada: " + hecho);
+
+                // Aquí obtenemos el ID de la tarea directamente de la tabla
+                int idTarea = Integer.parseInt(this.TableToDo.getValueAt(fila, <índice de la columna del ID>).toString());
+                ps.setInt(3, idTarea);
+
+                ps.executeUpdate();
+                consultarTareas();
+            } catch (SQLException ex) {
+                System.out.println("No se puede actualizar :( ");
+                JOptionPane.showMessageDialog(null, ex.toString());
+            }
+        }
+    }*/
+
+
 
 
 
