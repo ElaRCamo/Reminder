@@ -81,21 +81,33 @@
               </vspacer>
               <component id="dff89" class="javax.swing.JTable" binding="TableToDo">
                 <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="300" height="180"/>
                   </grid>
                 </constraints>
                 <properties>
-                  <autoCreateRowSorter value="true"/>
+                  <autoCreateColumnsFromModel value="true"/>
+                  <autoCreateRowSorter value="false"/>
+                  <autoResizeMode value="0"/>
                   <background color="-1384230"/>
+                  <cellSelectionEnabled value="true"/>
                   <enabled value="true"/>
                   <focusable value="false"/>
-                  <font name="Segoe Print" size="12" style="0"/>
+                  <font name="Segoe Print" size="14" style="0"/>
                   <foreground color="-12572912"/>
                   <gridColor color="-3555399"/>
+                  <preferredScrollableViewportSize width="480" height="400"/>
+                  <rowHeight value="30"/>
+                  <rowMargin value="1"/>
                   <selectionBackground color="-3555399"/>
                   <selectionForeground color="-13754359"/>
+                  <showHorizontalLines value="false"/>
+                  <showVerticalLines value="false"/>
                 </properties>
+                <clientProperties>
+                  <JTable.autoStartsEdit class="java.lang.Boolean" value="false"/>
+                  <Table.isFileList class="java.lang.Boolean" value="false"/>
+                </clientProperties>
               </component>
               <component id="f8f28" class="javax.swing.JButton" binding="nuevoButton" default-binding="true">
                 <constraints>
