@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -91,9 +92,9 @@ public class ListaTips extends JFrame {
 
     public ListaTips() {
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        toDoButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
+        reminderButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
         //Quitar bordes
-        toDoButton.setBorder(BorderFactory.createEmptyBorder());
-        reminderButton.setBorder(BorderFactory.createEmptyBorder());
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());
         setUndecorated(true);

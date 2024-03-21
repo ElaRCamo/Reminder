@@ -37,7 +37,7 @@ public class Recordatorio extends JFrame {
             // Establecer la conexión
             //Connection connection = DriverManager.getConnection(url, user, password);
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexión exitosa");
+            //System.out.println("Conexión exitosa");
             // Devolver la conexión
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
@@ -121,6 +121,7 @@ public class Recordatorio extends JFrame {
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
+
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -168,9 +169,7 @@ public class Recordatorio extends JFrame {
                 Recordatorio.this.setVisible(false);
                 try {
                     ToDo.gestionarListaTareas();
-                    System.out.println("Se ejecuta el try");
                 } catch (SQLException ex) {
-                    System.out.println("Se ejecuta el catch");
                     throw new RuntimeException(ex);
                 }
             }

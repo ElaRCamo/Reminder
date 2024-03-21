@@ -86,11 +86,13 @@ public class Tip extends JFrame {
 
 
     public Tip() {
+
         saveTipPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         textTip.setLineWrap(true);
         textTip.setWrapStyleWord(true);
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+
 
         bnReminder.addActionListener(new ActionListener() {
             @Override

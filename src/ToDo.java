@@ -24,12 +24,10 @@ public class ToDo extends JFrame{
     private JButton tipsButton;
     private JButton xButton;
     public JTable TableToDo;
-    private JButton actualizarButton;
     private JLabel index;
     private JTextField taskName;
     private JButton done;
     private boolean checked;
-
 
     public static Connection conectar() {
         String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
@@ -38,7 +36,7 @@ public class ToDo extends JFrame{
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             Connection connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexión exitosa");
+            //System.out.println("Conexión exitosa");
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -67,91 +65,87 @@ public class ToDo extends JFrame{
         tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
     }
 
-    public boolean realizado(int row, int column, JTable table){
-        return table.getValueAt(row, column) != null;
-    }
+    public void consultarTareas() throws SQLException {
+        String sql = "SELECT idToDo, descriptionToDo, done FROM ToDo";
 
-public void consultarTareas() throws SQLException {
-    String sql = "SELECT idToDo, descriptionToDo, done FROM ToDo";
-    System.out.println(sql);
+        try (Connection connection = conectar()) {
+            assert connection != null;
 
-    try (Connection connection = conectar()) {
-        assert connection != null;
+            try (Statement st = connection.createStatement()) {
+                DefaultTableModel modeloTabla = new DefaultTableModel() {
+                    // Hacer que todas las celdas sean editables, excepto la columna de ID
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return column != 0; // Permitir editar todas las columnas excepto la primera (ID)
+                    }
+                };
+                modeloTabla.addColumn("ID");
+                modeloTabla.addColumn("Task");
+                modeloTabla.addColumn("Done");
+                TableToDo.setModel(modeloTabla);
+                ResultSet rs = st.executeQuery(sql);
 
-        try (Statement st = connection.createStatement()) {
-            DefaultTableModel modeloTabla = new DefaultTableModel() {
-                // Hacer que todas las celdas sean editables, excepto la columna de ID
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return column != 0; // Permitir editar todas las columnas excepto la primera (ID)
+                while (rs.next()) {
+                    int idTarea = rs.getInt("idToDo");
+                    String tarea = rs.getString("descriptionToDo");
+                    boolean hecho = rs.getInt("done") == 1; // Convertir el valor entero a booleano
+
+                    //System.out.println("ID: " + idTarea + ", Tarea: " + tarea + ", Hecho: " + hecho);
+
+                    // Añadir una fila con los valores correspondientes
+                    modeloTabla.addRow(new Object[]{idTarea, tarea, hecho});
                 }
-            };
-            modeloTabla.addColumn("ID");
-            modeloTabla.addColumn("Task");
-            modeloTabla.addColumn("Done");
-            TableToDo.setModel(modeloTabla);
-            ResultSet rs = st.executeQuery(sql);
 
-            while (rs.next()) {
-                int idTarea = rs.getInt("idToDo");
-                String tarea = rs.getString("descriptionToDo");
-                boolean hecho = rs.getInt("done") == 1; // Convertir el valor entero a booleano
-
-                System.out.println("ID: " + idTarea + ", Tarea: " + tarea + ", Hecho: " + hecho);
-
-                // Añadir una fila con los valores correspondientes
-                modeloTabla.addRow(new Object[]{idTarea, tarea, hecho});
-            }
-
-            // Llamar a addCheckBox después de que se haya configurado el modelo de tabla
-            addCheckBox(2, TableToDo); // La columna "Hecho" es la tercera columna (índice 2)
+                // Llamar a addCheckBox después de que se haya configurado el modelo de tabla
+                addCheckBox(2, TableToDo); // La columna "Hecho" es la tercera columna (índice 2)
 
 
-            TableToDo.getModel().addTableModelListener(new TableModelListener() {
-                @Override
-                public void tableChanged(TableModelEvent e) {
-                    if (e.getType() == TableModelEvent.UPDATE) { // Verificar si hay un cambio en los datos de la tabla
-                        int row = e.getFirstRow();
-                        int column = e.getColumn();
+                TableToDo.getModel().addTableModelListener(new TableModelListener() {
+                    @Override
+                    public void tableChanged(TableModelEvent e) {
+                        if (e.getType() == TableModelEvent.UPDATE) { // Verificar si hay un cambio en los datos de la tabla
+                            int row = e.getFirstRow();
+                            int column = e.getColumn();
 
-                        // Verificar si el cambio se realizó en la columna de "Hecho"
-                        if (column == 2) {
-                            // Obtener el valor actualizado del checkbox
-                            Boolean checked = (Boolean) TableToDo.getValueAt(row, column);
-                            // Llamar al método actualizarTareas para guardar el cambio en la base de datos
-                            try {
-                                actualizarTareas(row, checked);
-                            } catch (SQLException ex) {
-                                System.out.println("Error al actualizar la tarea: " + ex.getMessage());
-                            }
-                        } else if (column == 1) { // Verificar si el cambio se realizó en la columna de "Task"
-                            String newDescription = (String) TableToDo.getValueAt(row, column);
-                            int idTarea = (int) TableToDo.getValueAt(row, 0); // Obtener el ID de la tarea
-                            // Llamar al método actualizarTareas para guardar el cambio en la base de datos
-                            try {
-                                actualizarDescripcionTarea(idTarea, newDescription);
-                            } catch (SQLException ex) {
-                                System.out.println("Error al actualizar la descripción de la tarea: " + ex.getMessage());
+                            // Verificar si el cambio se realizó en la columna de "Hecho"
+                            if (column == 2) {
+                                // Obtener el valor actualizado del checkbox
+                                Boolean checked = (Boolean) TableToDo.getValueAt(row, column);
+                                // Llamar al método actualizarTareas para guardar el cambio en la base de datos
+                                try {
+                                    actualizarTareas(row, checked);
+                                } catch (SQLException ex) {
+                                    System.out.println("Error al actualizar la tarea: " + ex.getMessage());
+                                }
+                            } else if (column == 1) { // Verificar si el cambio se realizó en la columna de "Task"
+                                String newDescription = (String) TableToDo.getValueAt(row, column);
+                                int idTarea = (int) TableToDo.getValueAt(row, 0); // Obtener el ID de la tarea
+                                // Llamar al método actualizarTareas para guardar el cambio en la base de datos
+                                try {
+                                    actualizarDescripcionTarea(idTarea, newDescription);
+                                } catch (SQLException ex) {
+                                    System.out.println("Error al actualizar la descripción de la tarea: " + ex.getMessage());
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
+        } catch (SQLException ex) {
+            System.out.println("No se puede mostrar :( ");
+            JOptionPane.showMessageDialog(null, ex.toString());
         }
-    } catch (SQLException ex) {
-        System.out.println("No se puede mostrar :( ");
-        JOptionPane.showMessageDialog(null, ex.toString());
     }
-}
     public void actualizarDescripcionTarea(int idTarea, String nuevaDescripcion) throws SQLException {
         String sql = "UPDATE ToDo SET descriptionToDo=? WHERE idToDo=?";
-        System.out.println(sql);
 
-        try (Connection connection = conectar();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, nuevaDescripcion);
-            ps.setInt(2, idTarea);
-            ps.executeUpdate();
+        try (Connection connection = conectar()) {
+            assert connection != null;
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, nuevaDescripcion);
+                ps.setInt(2, idTarea);
+                ps.executeUpdate();
+            }
         }
     }
 
@@ -160,7 +154,6 @@ public void consultarTareas() throws SQLException {
         int hecho = checked ? 1 : 0; // Convertir el estado del checkbox a entero (1 si está marcado, 0 si no lo está)
 
         String sql = "UPDATE ToDo SET descriptionToDo=?, done=? WHERE idToDo=?";
-        System.out.println(sql);
 
         try (Connection connection = conectar()) {
             assert connection != null;
@@ -183,11 +176,10 @@ public void consultarTareas() throws SQLException {
 
     public ToDo() throws SQLException {
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        //Quitar bordes
-        tipsButton.setBorder(BorderFactory.createEmptyBorder());
-        reminderButton.setBorder(BorderFactory.createEmptyBorder());
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());
+        tipsButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
+        reminderButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
 
         //Para quitar el borde donde se ubica el tittle
         setUndecorated(true);
@@ -223,8 +215,7 @@ public void consultarTareas() throws SQLException {
 
             tableColumn.setPreferredWidth(preferredWidth);
         }
-
-// Activar el ajuste automático después de ajustar el ancho de las columnas
+        // Activar el ajuste automático después de ajustar el ancho de las columnas
         TableToDo.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 
 
