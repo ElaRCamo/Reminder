@@ -65,6 +65,7 @@ public class Tip extends JFrame {
     }
 
     public void  guardarTip() throws SQLException{
+
         String tip = textTip.getText();
         System.out.println(tip);
         try (Connection connection = Tip.conectar()) {
@@ -73,6 +74,7 @@ public class Tip extends JFrame {
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO Tip(descriptionTip) VALUES(?)");
                 ps.setString(1, tip);
                 ps.executeUpdate();
+
                 JOptionPane.showMessageDialog(null, "Tip guardado exitosamente");//null se refiere a la posicion del msj
                 textTip.setText("");//Para que el espacio quede vacio
 
@@ -93,6 +95,14 @@ public class Tip extends JFrame {
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
+        bnReminder.setBorder(new RoundBorder(new Color(234,224,218), 45,15));
+        btToDo.setBorder(new RoundBorder(new Color(234,224,218), 45,15));
+
+
+        UIManager.put("OptionPane.background", new Color(234,224,218));
+        UIManager.put("Panel.background", new Color(234,224,218));
+        UIManager.put("OptionPane.messageFont", new Font("Segoe Script", Font.BOLD,20));
+        UIManager.put("OptionPane.messageForeground", new Color(64,39,16));
 
         bnReminder.addActionListener(new ActionListener() {
             @Override

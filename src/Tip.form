@@ -123,7 +123,7 @@
         </constraints>
         <properties>
           <background color="-7192"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <focusPainted value="false"/>
           <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-14477559"/>
@@ -153,7 +153,7 @@
         </constraints>
         <properties>
           <background color="-7192"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <focusPainted value="false"/>
           <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-14477559"/>

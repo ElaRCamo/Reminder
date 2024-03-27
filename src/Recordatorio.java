@@ -121,6 +121,9 @@ public class Recordatorio extends JFrame {
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
+        tipsButton.setBorder(new RoundBorder(new Color(234,224,218), 45,15));
+        toDoButton.setBorder(new RoundBorder(new Color(234,224,218), 45,15));
+
 
         okButton.addActionListener(new ActionListener() {
             @Override

@@ -15,12 +15,12 @@
       <component id="496f1" class="javax.swing.JButton" binding="tipsButton">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="-1" height="50"/>
+            <minimum-size width="150" height="50"/>
           </grid>
         </constraints>
         <properties>
           <background color="-7192"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <focusPainted value="false"/>
           <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-12572912"/>
@@ -30,12 +30,12 @@
       <component id="532ba" class="javax.swing.JButton" binding="toDoButton">
         <constraints>
           <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="-1" height="50"/>
+            <minimum-size width="150" height="50"/>
           </grid>
         </constraints>
         <properties>
           <background color="-7192"/>
-          <borderPainted value="false"/>
+          <borderPainted value="true"/>
           <focusPainted value="false"/>
           <font name="Segoe Script" size="20" style="1"/>
           <foreground color="-12572912"/>
