@@ -6,8 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.*;
 
 
@@ -25,6 +24,7 @@ public class ToDo extends JFrame{
     private JTextField taskName;
     private JButton done;
     private boolean checked;
+    DefaultTableModel modeloTabla = new DefaultTableModel();
 
     public static Connection conectar() {
         String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
@@ -57,9 +57,13 @@ public class ToDo extends JFrame{
         });
     }
     public void addCheckBox(int column, JTable table){
+        // Obtener la columna específica
         TableColumn tc = table.getColumnModel().getColumn(column);
-        tc.setCellEditor(table.getDefaultEditor(Boolean.class));
-        tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+
+        // Establecer el editor y el renderizador de celdas como JCheckBoxCustom
+        JCheckBoxCustom checkBox = new JCheckBoxCustom();
+        tc.setCellEditor(new DefaultCellEditor(new JCheckBoxCustom()));
+        tc.setCellRenderer(new CheckBoxRenderer());
     }
 
     public void consultarTareas() throws SQLException {
@@ -69,8 +73,7 @@ public class ToDo extends JFrame{
             assert connection != null;
 
             try (Statement st = connection.createStatement()) {
-                DefaultTableModel modeloTabla = new DefaultTableModel() {
-                    // Hacer que todas las celdas sean editables, excepto la columna de ID
+                modeloTabla = new DefaultTableModel() {
                     @Override
                     public boolean isCellEditable(int row, int column) {
                         return column != 0; // Permitir editar todas las columnas excepto la primera (ID)
@@ -95,7 +98,6 @@ public class ToDo extends JFrame{
 
                 // Llamar a addCheckBox después de que se haya configurado el modelo de tabla
                 addCheckBox(2, TableToDo); // La columna "Hecho" es la tercera columna (índice 2)
-
 
                 TableToDo.getModel().addTableModelListener(new TableModelListener() {
                     @Override
@@ -123,6 +125,8 @@ public class ToDo extends JFrame{
                                 } catch (SQLException ex) {
                                     System.out.println("Error al actualizar la descripción de la tarea: " + ex.getMessage());
                                 }
+                            }else{
+                                JOptionPane.showMessageDialog(null, "No hay nuevos cambios");
                             }
                         }
                     }
@@ -160,7 +164,6 @@ public class ToDo extends JFrame{
                 ps.setInt(2, hecho);
                 int idTarea = Integer.parseInt(this.TableToDo.getValueAt(fila, 0).toString()); // Índice 0 para el ID
                 ps.setInt(3, idTarea);
-
                 ps.executeUpdate();
                 consultarTareas();
             } catch (SQLException ex) {
@@ -170,6 +173,93 @@ public class ToDo extends JFrame{
         }
     }
 
+    public void eliminarTareas() throws SQLException {
+
+        modeloTabla = (DefaultTableModel) TableToDo.getModel();
+        int fila = TableToDo.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un elemento para eliminar.");
+            return;
+        }else{
+
+            int idTarea = Integer.parseInt(this.TableToDo.getValueAt(fila, 0).toString());
+            String sql = "DELETE FROM ToDo WHERE idToDo= " + idTarea + ";";
+
+            try (Connection connection = ListaTips.conectar()) {
+                assert connection != null;
+                try (Statement st = connection.createStatement()) {
+                    st.executeUpdate(sql);
+                    modeloTabla.removeRow(fila);
+                    JOptionPane.showMessageDialog(null, "Tarea eliminada exitosamente");
+                }
+            } catch (SQLException ex) {
+                System.out.println("No se pudo eliminar :( ");
+                JOptionPane.showMessageDialog(null, ex.toString());
+            }
+        }
+    }
+
+    public static int numTareas() throws SQLException {
+        try (Connection connection = conectar()) {
+            assert connection != null;
+            try (Statement st = connection.createStatement()) {
+                //Obtenemos el numero total de registros y lo convertimos a int
+                ResultSet rs = st.executeQuery("SELECT count(idToDo) FROM ToDo");
+                // Mover al primer resultado (ya que es un solo valor)
+                rs.next();
+                // Obtener y retornar el valor como entero
+                return rs.getInt(1);
+            }
+        }
+    }
+
+    public void agregarTareas() throws SQLException {
+        modeloTabla = (DefaultTableModel) TableToDo.getModel();
+
+        // Añadir una fila con los valores correspondientes
+        modeloTabla.addRow(new Object[modeloTabla.getColumnCount()]);
+        int filaNueva = modeloTabla.getRowCount() - 1;
+
+        TableToDo.editCellAt(filaNueva, 1); //Editar la columna donde está la tarea
+        TableToDo.requestFocusInWindow(); // Poner el foco en la celda editada
+
+        // Agregar un TableModelListener para detectar cambios en el modelo de la tabla
+        modeloTabla.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) { // Verificar si el cambio fue una actualización de celda
+                    int fila = e.getFirstRow();
+                    int columna = e.getColumn();
+                    if (fila == filaNueva && columna == 1) { // Verificar que se haya modificado la celda de la columna deseada
+                        guardarTarea(filaNueva);
+                    }
+                }
+            }
+        });
+    }
+
+    private void guardarTarea(int fila) {
+        String tarea = TableToDo.getValueAt(fila, 1).toString(); // Índice 1
+
+        try (Connection connection = Tip.conectar()) {
+            assert connection != null;
+            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO ToDo (descriptionToDo, done) VALUES (?, ?)")) {
+                ps.setString(1, tarea);
+                ps.setInt(2, 0);
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Tarea agregada exitosamente");
+                consultarTareas();
+            } catch (SQLException ex) {
+                System.out.println("No se pudo agregar :( ");
+                JOptionPane.showMessageDialog(null, ex.toString());
+                throw new RuntimeException(ex);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public ToDo() throws SQLException {
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -215,7 +305,6 @@ public class ToDo extends JFrame{
         // Activar el ajuste automático después de ajustar el ancho de las columnas
         TableToDo.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 
-
         reminderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -253,5 +342,25 @@ public class ToDo extends JFrame{
             }
         });
 
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    eliminarTareas();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        nuevoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    agregarTareas();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
     }
 }
