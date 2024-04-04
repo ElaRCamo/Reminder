@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ToDo">
+  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="504" height="504"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="90d24" binding="toDoPanel" layout-manager="GridLayoutManager" row-count="7" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1384230"/>
+          <minimumSize width="500" height="500"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="4f0f" binding="tablaPanel" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="d5203" class="javax.swing.JLabel" binding="listaLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Segoe Print" size="16" style="1"/>
+                  <foreground color="-12572912"/>
+                  <text value="Things to do today:"/>
+                </properties>
+              </component>
+              <component id="9337d" class="javax.swing.JButton" binding="eliminarButton" default-binding="true">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="40"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <borderPainted value="false"/>
+                  <focusPainted value="false"/>
+                  <font name="Segoe Script" size="20" style="1"/>
+                  <foreground color="-3555399"/>
+                  <label value="Delete"/>
+                  <text value="Delete"/>
+                </properties>
+              </component>
+              <vspacer id="18542">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <hspacer id="f2e75">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="15" height="-1"/>
+                  </grid>
+                </constraints>
+              </hspacer>
+              <hspacer id="7652">
+                <constraints>
+                  <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="15" height="-1"/>
+                  </grid>
+                </constraints>
+              </hspacer>
+              <component id="dff89" class="javax.swing.JTable" binding="TableToDo">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="350" height="180"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <autoCreateColumnsFromModel value="true"/>
+                  <autoCreateRowSorter value="false"/>
+                  <autoResizeMode value="0"/>
+                  <background color="-1384230"/>
+                  <cellSelectionEnabled value="true"/>
+                  <enabled value="true"/>
+                  <focusable value="false"/>
+                  <font name="Segoe Print" size="14" style="0"/>
+                  <foreground color="-12572912"/>
+                  <gridColor color="-3555399"/>
+                  <preferredScrollableViewportSize width="480" height="400"/>
+                  <rowHeight value="30"/>
+                  <rowMargin value="1"/>
+                  <selectionBackground color="-3555399"/>
+                  <selectionForeground color="-13754359"/>
+                  <showHorizontalLines value="false"/>
+                  <showVerticalLines value="false"/>
+                </properties>
+                <clientProperties>
+                  <JTable.autoStartsEdit class="java.lang.Boolean" value="false"/>
+                  <Table.isFileList class="java.lang.Boolean" value="false"/>
+                </clientProperties>
+              </component>
+              <component id="f8f28" class="javax.swing.JButton" binding="nuevoButton" default-binding="true">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="150" height="40"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value=""/>
+                  <background color="-1"/>
+                  <focusPainted value="false"/>
+                  <font name="Segoe Script" size="20" style="1"/>
+                  <foreground color="-3555399"/>
+                  <label value="Add"/>
+                  <text value="Add"/>
+                </properties>
+              </component>
+              <vspacer id="e996f">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+            </children>
+          </grid>
+          <component id="cdf7a" class="javax.swing.JButton" binding="reminderButton" default-binding="true">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="210" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-7192"/>
+              <focusPainted value="false"/>
+              <font name="Segoe Script" size="20" style="1"/>
+              <text value="Reminder"/>
+            </properties>
+          </component>
+          <component id="14aa3" class="javax.swing.JButton" binding="tipsButton" default-binding="true">
+            <constraints>
+              <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="210" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-7192"/>
+              <focusPainted value="false"/>
+              <font name="Segoe Script" size="20" style="1"/>
+              <text value="Tips"/>
+            </properties>
+          </component>
+          <vspacer id="e499b">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="30"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <hspacer id="b795b">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="30" height="-1"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <hspacer id="472b7">
+            <constraints>
+              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="30" height="-1"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <vspacer id="7213c">
+            <constraints>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="30"/>
+                <preferred-size width="-1" height="30"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <component id="c006a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="sparkle.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <vspacer id="caa54">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="30" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <component id="3dd67" class="javax.swing.JButton" binding="xButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <maximum-size width="50" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-1384230"/>
+              <borderPainted value="false"/>
+              <focusPainted value="false"/>
+              <font name="Segoe Print" size="22" style="1"/>
+              <foreground color="-3555399"/>
+              <horizontalAlignment value="4"/>
+              <text value="x"/>
+            </properties>
+          </component>
+          <vspacer id="2b022">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+    </children>
+  </grid>
+  <inspectionSuppressions>
+    <suppress inspection="NoScrollPane"/>
+  </inspectionSuppressions>
+</form>

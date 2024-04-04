@@ -1,11 +1,12 @@
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.Locale;
+
+import static com.sun.deploy.trace.TraceLevel.UI;
+import static javax.swing.UIManager.getIcon;
 
 public class Recordatorio extends JFrame {
     JButton okButton;
@@ -14,16 +15,18 @@ public class Recordatorio extends JFrame {
     JTextArea phraseText;
     private JPanel reminderPanel;
     JPanel mainPanel;
-    JLabel icon;
     JTextField autorText;
+    private JLabel iconTip;
+    private JButton xButton;
     static Connection connection;
-    PreparedStatement ps; //para INSERT TO
-    Statement st; //para SELECT
+    public Statement st; //para SELECT
     ResultSet r; //ejecutar query
     static String reminderDescription;
+    private String path;
 
 
-    private static Connection conectar() {
+
+    public static Connection conectar() {
         // Información de conexión a tu base de datos SQL Server
         String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
         String user = "sa";
@@ -34,7 +37,7 @@ public class Recordatorio extends JFrame {
             // Establecer la conexión
             //Connection connection = DriverManager.getConnection(url, user, password);
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexión exitosa");
+            //System.out.println("Conexión exitosa");
             // Devolver la conexión
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
@@ -42,6 +45,27 @@ public class Recordatorio extends JFrame {
             e.printStackTrace();
             return null; // Retorna null en caso de error
         }
+    }
+
+    public static void consultarRecordatorios() throws SQLException {
+        Recordatorio recordatorio = new Recordatorio();
+        recordatorio.setContentPane(recordatorio.mainPanel);
+        recordatorio.setTitle("R E M I N D E R");
+        recordatorio.setSize(500, 500);
+        recordatorio.setVisible(true);
+        recordatorio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        recordatorio.setLocationRelativeTo(null);
+        recordatorio.setResizable(false);
+        //mandar reminder y autor
+        String[] reminderValues = Recordatorio.consultaReminder(1);
+        String reminderDescription = reminderValues[0];
+        String autorReminder = reminderValues[1];
+        recordatorio.phraseText.setText(reminderDescription);
+        recordatorio.autorText.setText(autorReminder);
+        //Quitar bordes
+        recordatorio.phraseText.setBorder(BorderFactory.createEmptyBorder());
+        recordatorio.autorText.setBorder(BorderFactory.createEmptyBorder());
+        recordatorio.okButton.setBorder(BorderFactory.createEmptyBorder());
     }
 
     public static int numRegistros() throws SQLException {
@@ -57,8 +81,6 @@ public class Recordatorio extends JFrame {
             }
         }
     }
-//linewipe
-    //wrapStyleWord
 
     public static String[] consultaReminder(int i) throws SQLException {
         try (Connection connection = conectar()) {
@@ -79,20 +101,40 @@ public class Recordatorio extends JFrame {
     }
 
 
-    // min 28 https://www.youtube.com/watch?v=_cRp1qGVIkU
-   /* public void insertarTip() throws SQLException {
-        conectar();
-        ps = connection.prepareStatement("INSERT INTO Tip VALUES (?)");
-        ps.setString(1,".");
-    }*/
+    // https://www.youtube.com/watch?v=_cRp1qGVIkU
+
 
     public Recordatorio() {
+
+        reminderPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         phraseText.setLineWrap(true);
         phraseText.setWrapStyleWord(true);
+        phraseText.setEditable(false); //Para que no se pueda editar el texto
+
+        // Configurar alineación del contenido en el JTextArea
+        phraseText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        phraseText.setAlignmentY(Component.CENTER_ALIGNMENT);
+        //Para que el textArea no se pueda editar
+        autorText.setEditable(false);
+        autorText.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
+        setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+
+        tipsButton.setBorder(new RoundBorder(new Color(234,224,218), 45,15));
+        toDoButton.setBorder(new RoundBorder(new Color(234,224,218), 45,15));
+
+
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(okButton, "Be happy!!!");
+                ImageIcon icon = new ImageIcon("C:\\Users\\Ex-Reyes-M\\IdeaProjects\\Reminder\\src\\carita_feliz.png");
+                UIManager.put("OptionPane.background", new Color(234,224,218));
+                UIManager.put("Panel.background", new Color(234,224,218));
+                UIManager.put("OptionPane.messageFont", new Font("Segoe Script", Font.BOLD,20));
+                UIManager.put("OptionPane.messageForeground", new Color(64,39,16));
+
+                JOptionPane.showMessageDialog(okButton, " Be happy!!!", "",JOptionPane.PLAIN_MESSAGE, icon);
 
                 String[] reminderValues = new String[0];
                 try {
@@ -106,17 +148,33 @@ public class Recordatorio extends JFrame {
                 autorText.setText(autorReminder);
             }
         });
+
         tipsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Recordatorio.this.setVisible(false);
-                Tip newTip = new Tip();
-                newTip.setContentPane(newTip.panelTip);
-                newTip.setTitle("Save a tip");
-                newTip.setSize(480, 480);
-                newTip.setVisible(true);
-                newTip.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                newTip.setLocationRelativeTo(null);
+                try {
+                    Tip.verTips();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        toDoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Recordatorio.this.setVisible(false);
+                try {
+                    ToDo.gestionarListaTareas();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
@@ -124,133 +182,6 @@ public class Recordatorio extends JFrame {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-    }
-
-    {
-// GUI initializer generated by IntelliJ IDEA GUI Designer
-// >>> IMPORTANT!! <<<
-// DO NOT EDIT OR ADD ANY CODE HERE!
-        $$$setupUI$$$();
-    }
-
-    /**
-     * Method generated by IntelliJ IDEA GUI Designer
-     * >>> IMPORTANT!! <<<
-     * DO NOT edit this method OR call it in your code!
-     *
-     * @noinspection ALL
-     */
-    private void $$$setupUI$$$() {
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(6, 4, new Insets(0, 0, 0, 0), -1, -1));
-        mainPanel.setBackground(new Color(-1384230));
-        mainPanel.setMaximumSize(new Dimension(480, 480));
-        mainPanel.setMinimumSize(new Dimension(480, 480));
-        tipsButton = new JButton();
-        tipsButton.setBackground(new Color(-1387547));
-        tipsButton.setBorderPainted(false);
-        Font tipsButtonFont = this.$$$getFont$$$("Italic", Font.BOLD, 18, tipsButton.getFont());
-        if (tipsButtonFont != null) tipsButton.setFont(tipsButtonFont);
-        tipsButton.setForeground(new Color(-14477559));
-        tipsButton.setText("Tips");
-        mainPanel.add(tipsButton, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(200, 40), null, new Dimension(200, 40), 0, false));
-        toDoButton = new JButton();
-        toDoButton.setBackground(new Color(-1387547));
-        toDoButton.setBorderPainted(false);
-        Font toDoButtonFont = this.$$$getFont$$$("ItalicC", Font.BOLD, 18, toDoButton.getFont());
-        if (toDoButtonFont != null) toDoButton.setFont(toDoButtonFont);
-        toDoButton.setForeground(new Color(-14477559));
-        toDoButton.setText("To do");
-        mainPanel.add(toDoButton, new com.intellij.uiDesigner.core.GridConstraints(4, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(200, 40), null, new Dimension(200, 40), 0, false));
-        reminderPanel = new JPanel();
-        reminderPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(7, 6, new Insets(0, 0, 0, 0), -1, -1));
-        reminderPanel.setBackground(new Color(-1));
-        mainPanel.add(reminderPanel, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(420, 265), new Dimension(420, 265), 1, false));
-        phraseText = new JTextArea();
-        phraseText.setBackground(new Color(-1));
-        Font phraseTextFont = this.$$$getFont$$$("ItalicC", Font.ITALIC, 20, phraseText.getFont());
-        if (phraseTextFont != null) phraseText.setFont(phraseTextFont);
-        phraseText.setForeground(new Color(-14477559));
-        phraseText.setText("");
-        reminderPanel.add(phraseText, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(390, -1), new Dimension(-1, 100), new Dimension(390, 100), 0, false));
-        final JLabel label1 = new JLabel();
-        label1.setBackground(new Color(-1));
-        Font label1Font = this.$$$getFont$$$("Dutch801 Rm BT", Font.BOLD | Font.ITALIC, 26, label1.getFont());
-        if (label1Font != null) label1.setFont(label1Font);
-        label1.setForeground(new Color(-14477559));
-        label1.setText("✦ R E M I N D E R ✦");
-        reminderPanel.add(label1, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 40), new Dimension(390, 40), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
-        reminderPanel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(1, 5, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, new Dimension(15, -1), null, new Dimension(15, -1), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer2 = new com.intellij.uiDesigner.core.Spacer();
-        reminderPanel.add(spacer2, new com.intellij.uiDesigner.core.GridConstraints(6, 4, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        okButton = new JButton();
-        okButton.setBackground(new Color(-1));
-        Font okButtonFont = this.$$$getFont$$$("ItalicC", Font.BOLD, 20, okButton.getFont());
-        if (okButtonFont != null) okButton.setFont(okButtonFont);
-        okButton.setForeground(new Color(-14477559));
-        okButton.setText("Ok!");
-        reminderPanel.add(okButton, new com.intellij.uiDesigner.core.GridConstraints(5, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(420, 40), new Dimension(420, 40), new Dimension(420, 40), 0, false));
-        autorText = new JTextField();
-        autorText.setAlignmentX(0.0f);
-        autorText.setAlignmentY(0.0f);
-        autorText.setBackground(new Color(-1));
-        Font autorTextFont = this.$$$getFont$$$("Bradley Hand ITC", Font.BOLD, 20, autorText.getFont());
-        if (autorTextFont != null) autorText.setFont(autorTextFont);
-        autorText.setText("");
-        reminderPanel.add(autorText, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 4, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(390, 40), new Dimension(390, 40), new Dimension(390, 40), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer3 = new com.intellij.uiDesigner.core.Spacer();
-        reminderPanel.add(spacer3, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, new Dimension(-1, 15), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer4 = new com.intellij.uiDesigner.core.Spacer();
-        reminderPanel.add(spacer4, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, new Dimension(-1, 10), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer5 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer5, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, new Dimension(-1, 30), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer6 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer6, new com.intellij.uiDesigner.core.GridConstraints(3, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, new Dimension(-1, 15), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer7 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer7, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, new Dimension(30, -1), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer8 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer8, new com.intellij.uiDesigner.core.GridConstraints(2, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, new Dimension(30, -1), 0, false));
-        icon = new JLabel();
-        icon.setForeground(new Color(-16777216));
-        icon.setHorizontalAlignment(10);
-        icon.setIcon(new ImageIcon(getClass().getResource("/estrella.png")));
-        icon.setText("");
-        icon.setVisible(true);
-        mainPanel.add(icon, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(115, 115), new Dimension(115, 115), new Dimension(95, 95), 0, false));
-        final com.intellij.uiDesigner.core.Spacer spacer9 = new com.intellij.uiDesigner.core.Spacer();
-        mainPanel.add(spacer9, new com.intellij.uiDesigner.core.GridConstraints(5, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, new Dimension(-1, 30), 0, false));
-        label1.setLabelFor(autorText);
-        icon.setLabelFor(phraseText);
-    }
-
-    /**
-     * @noinspection ALL
-     */
-    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
-        if (currentFont == null) return null;
-        String resultName;
-        if (fontName == null) {
-            resultName = currentFont.getName();
-        } else {
-            Font testFont = new Font(fontName, Font.PLAIN, 10);
-            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-                resultName = fontName;
-            } else {
-                resultName = currentFont.getName();
-            }
-        }
-        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
-        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
-        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
-    }
-
-    /**
-     * @noinspection ALL
-     */
-    public JComponent $$$getRootComponent$$$() {
-        return mainPanel;
     }
 
 }
