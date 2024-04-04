@@ -268,6 +268,11 @@ public class ToDo extends JFrame{
         tipsButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
         reminderButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
 
+        UIManager.put("OptionPane.background", new Color(234,224,218));
+        UIManager.put("Panel.background", new Color(234,224,218));
+        UIManager.put("OptionPane.messageFont", new Font("Segoe Script", Font.BOLD,18));
+        UIManager.put("OptionPane.messageForeground", new Color(64,39,16));
+
         //Para quitar el borde donde se ubica el tittle
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
