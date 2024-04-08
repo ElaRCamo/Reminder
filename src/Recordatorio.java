@@ -105,6 +105,7 @@ public class Recordatorio extends JFrame {
 
 
     public Recordatorio() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
 
         reminderPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         phraseText.setLineWrap(true);

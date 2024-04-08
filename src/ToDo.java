@@ -262,6 +262,8 @@ public class ToDo extends JFrame{
     }
 
     public ToDo() throws SQLException {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
+
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());

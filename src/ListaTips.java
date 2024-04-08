@@ -91,6 +91,7 @@ public class ListaTips extends JFrame {
 
 
     public ListaTips() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         toDoButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
         reminderButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));

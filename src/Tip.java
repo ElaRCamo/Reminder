@@ -89,6 +89,8 @@ public class Tip extends JFrame {
 
     public Tip() {
 
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
+
         saveTipPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         textTip.setLineWrap(true);
         textTip.setWrapStyleWord(true);
