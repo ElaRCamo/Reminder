@@ -3,8 +3,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.*;
 
 public class ListaTips extends JFrame {
@@ -17,6 +15,7 @@ public class ListaTips extends JFrame {
     private JPanel tablaPanel;
     public JList lisTip;
     private JButton xButton;
+    private JScrollPane sPanel;
     DefaultListModel modeloLista = new DefaultListModel();
 
     public static Connection conectar() {
@@ -98,8 +97,16 @@ public class ListaTips extends JFrame {
         //Quitar bordes
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());
+        sPanel.setBorder(BorderFactory.createEmptyBorder());
+
+        sPanel.getVerticalScrollBar().setUI(new CustomScrollBar());
+        sPanel.getHorizontalScrollBar().setUI(new CustomScrollBar());
+
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+
+        //determinar tamaño del panel para que el scroll se adapte
+        setPreferredSize(new Dimension(300,600));
 
         try {
             cargarTips();

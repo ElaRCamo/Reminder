@@ -12,4 +12,5 @@ X   7. Agregar estilo al checkbox. Se agrega clase pero no funciona. (27/03/2024
 ✓   10 Dar estilo al messaggedialog del Tip(save) (27/03/2024)
   11. Poder editar los elementos de Lista Tips
   12. Si se eliminN TODAS LAS TAREAS en Todo, que se aplique truncate a la tabla para reestablecer los ids
-
+  13. Generar ejecutable con librerias
+  14 Cambiar icono del ejecutable(08/04/2024)
