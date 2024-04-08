@@ -1,13 +1,19 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 
 
 public class ToDo extends JFrame{
@@ -20,6 +26,7 @@ public class ToDo extends JFrame{
     private JButton tipsButton;
     private JButton xButton;
     public JTable TableToDo;
+    private JScrollPane sPanel;
     private JLabel index;
     private JTextField taskName;
     private JButton done;
@@ -264,6 +271,23 @@ public class ToDo extends JFrame{
     public ToDo() throws SQLException {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
 
+
+        // Personalizar el encabezado de la tabla
+        JTableHeader header = TableToDo.getTableHeader();
+        header.setBackground(new java.awt.Color(201, 191, 185)); // Cambiar color de fondo
+        header.setForeground(new java.awt.Color(46,36,9)); // Cambiar color del texto
+        java.awt.Font headerFont = new java.awt.Font("Segoe Script", java.awt.Font.BOLD, 16);
+        //header.setBorder(new LineBorder(new java.awt.Color(234, 224, 218)));
+        header.setFont(headerFont);
+
+        // Cambiar el color de los bordes del encabezado
+        Color borderColor = new Color(201, 191, 185); // Color de los bordes
+        Border horizontalBorder = new LineBorder(borderColor, 1); // Borde horizontal
+        Border verticalBorder = new MatteBorder(0, 1, 0, 1, borderColor); // Borde vertical
+        Border compoundBorder = BorderFactory.createCompoundBorder(horizontalBorder, verticalBorder);
+        header.setBorder(compoundBorder);
+
+
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());
         eliminarButton.setBorder(BorderFactory.createEmptyBorder());
@@ -311,6 +335,10 @@ public class ToDo extends JFrame{
         }
         // Activar el ajuste automático después de ajustar el ancho de las columnas
         TableToDo.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+        sPanel.setBorder(BorderFactory.createEmptyBorder());
+        sPanel.getVerticalScrollBar().setUI(new CustomScrollBar());
+        sPanel.getHorizontalScrollBar().setUI(new CustomScrollBar());
 
         reminderButton.addActionListener(new ActionListener() {
             @Override
