@@ -34,7 +34,7 @@ public class ToDo extends JFrame{
     DefaultTableModel modeloTabla = new DefaultTableModel();
 
     public static Connection conectar() {
-        String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
+        String url = "jdbc:jtds:sqlserver://10.83.22.42:1433/Reminders;instance=MSSQLSERVER";
         String user = "sa";
         String password = "Grammer1";
         try {
@@ -274,19 +274,11 @@ public class ToDo extends JFrame{
 
         // Personalizar el encabezado de la tabla
         JTableHeader header = TableToDo.getTableHeader();
-        header.setBackground(new java.awt.Color(201, 191, 185)); // Cambiar color de fondo
+        header.setBackground(new java.awt.Color(255, 255, 255)); // Cambiar color de fondo
         header.setForeground(new java.awt.Color(46,36,9)); // Cambiar color del texto
         java.awt.Font headerFont = new java.awt.Font("Segoe Script", java.awt.Font.BOLD, 16);
-        //header.setBorder(new LineBorder(new java.awt.Color(234, 224, 218)));
+        header.setBorder(new LineBorder(new java.awt.Color(234, 224, 218)));
         header.setFont(headerFont);
-
-        // Cambiar el color de los bordes del encabezado
-        Color borderColor = new Color(201, 191, 185); // Color de los bordes
-        Border horizontalBorder = new LineBorder(borderColor, 1); // Borde horizontal
-        Border verticalBorder = new MatteBorder(0, 1, 0, 1, borderColor); // Borde vertical
-        Border compoundBorder = BorderFactory.createCompoundBorder(horizontalBorder, verticalBorder);
-        header.setBorder(compoundBorder);
-
 
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         nuevoButton.setBorder(BorderFactory.createEmptyBorder());

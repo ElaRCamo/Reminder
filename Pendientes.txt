@@ -1,16 +1,20 @@
 Cosas que faltan en proyecto Reminders:
 
 ✓   1. Redondear botones de Recordatorio.form y Tip.form(27/03/2024)
-  2. Que se ajuste el alto del panel que contiene la lista en Tip.form
-✓  3. Agregar un nuevo elemento a ToDo (04/04/2024)
-✓  4. Eliminar un elemento en Todo (03/04/2024)
-  5. Que se ajuste el alto del panel que contiene la lista en ToDo
-  6. Que el panel principal pueda moverse en la pantalla
+✓   2. Que se ajuste el alto del panel que contiene la lista en Tip.form(08/04/2024)
+✓   3. Agregar un nuevo elemento a ToDo (04/04/2024)
+✓   4. Eliminar un elemento en Todo (03/04/2024)
+✓   5. Que se ajuste el alto del panel que contiene la lista en ToDo
+	5.1 Ya se ajusta, faltan ajustar los colores
+    6. Que el panel principal pueda moverse en la pantalla
 X   7. Agregar estilo al checkbox. Se agrega clase pero no funciona. (27/03/2024)
-  8. Que al seleccionar/desseleccionar el checkbox en ToDo no pierda los ajustes del ancho.
+    8. Que al seleccionar/desseleccionar el checkbox en ToDo no pierda los ajustes del ancho.
 ✓   9. Dar estilo al messaggedialog del ListaTips (delete) (27/03/2024)
 ✓   10 Dar estilo al messaggedialog del Tip(save) (27/03/2024)
-  11. Poder editar los elementos de Lista Tips
-  12. Si se eliminN TODAS LAS TAREAS en Todo, que se aplique truncate a la tabla para reestablecer los ids
-  13. Generar ejecutable con librerias
-  14 Cambiar icono del ejecutable(08/04/2024)
+    11. Poder editar los elementos de Lista Tips
+    12. Si se eliminN TODAS LAS TAREAS en Todo, que se aplique truncate a la tabla para reestablecer los ids
+    13. Generar ejecutable con librerias
+✓   14 Cambiar icono del ejecutable(08/04/2024)
+    15. Ocultar la columna del id en TODO o aplicar el 12
+    16. Aveces al agregar un nuevo elemento a ToDo agrega 4 celdas vacias
+   

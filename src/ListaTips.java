@@ -20,7 +20,7 @@ public class ListaTips extends JFrame {
 
     public static Connection conectar() {
         // Información de conexión a tu base de datos SQL Server
-        String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
+        String url = "jdbc:jtds:sqlserver://10.83.22.42:1433/Reminders;instance=MSSQLSERVER";
         String user = "sa";
         String password = "Grammer1";
         try {
