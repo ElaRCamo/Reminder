@@ -34,14 +34,13 @@ public class ToDo extends JFrame{
     DefaultTableModel modeloTabla = new DefaultTableModel();
 
     public static Connection conectar() {
-        String url = "jdbc:jtds:sqlserver://10.83.22.42:1433/Reminders;instance=MSSQLSERVER";
+        String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
         String user = "sa";
         String password = "Grammer1";
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url, user, password);
             //System.out.println("Conexión exitosa");
-            return connection;
+            return DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             return null;
@@ -90,6 +89,11 @@ public class ToDo extends JFrame{
                 modeloTabla.addColumn("Task");
                 modeloTabla.addColumn("Done");
                 TableToDo.setModel(modeloTabla);
+                TableToDo.getColumnModel().getColumn(0).setMaxWidth(0);
+                TableToDo.getColumnModel().getColumn(0).setMinWidth(0);
+                TableToDo.getColumnModel().getColumn(0).setPreferredWidth(0);
+                TableToDo.getColumnModel().getColumn(0).setResizable(false);
+
                 ResultSet rs = st.executeQuery(sql);
 
                 while (rs.next()) {
@@ -331,6 +335,12 @@ public class ToDo extends JFrame{
         sPanel.setBorder(BorderFactory.createEmptyBorder());
         sPanel.getVerticalScrollBar().setUI(new CustomScrollBar());
         sPanel.getHorizontalScrollBar().setUI(new CustomScrollBar());
+
+        //Ocultar columna id
+        TableToDo.getColumnModel().getColumn(0).setMaxWidth(0);
+        TableToDo.getColumnModel().getColumn(0).setMinWidth(0);
+        TableToDo.getColumnModel().getColumn(0).setPreferredWidth(0);
+        TableToDo.getColumnModel().getColumn(0).setResizable(false);
 
         reminderButton.addActionListener(new ActionListener() {
             @Override
