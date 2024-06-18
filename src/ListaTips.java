@@ -42,15 +42,16 @@ public class ListaTips extends JFrame {
 
     public void  cargarTips(int user) throws SQLException{
         lisTip.setModel(modeloLista);
-        String sql= "SELECT descriptionTip FROM Tip;";
+        String sql= "SELECT descriptionTip FROM Tip WHERE userId = ?;";
         //System.out.println(sql);
-        try (Connection connection = ListaTips.conectar()) {
-            assert connection != null;
-            try (Statement st = connection.createStatement()) {
-                ResultSet rs = st.executeQuery(sql);
-                modeloLista.removeAllElements();
-                while(rs.next())
-                    modeloLista.addElement(rs.getString(1));
+        try (Connection connection = ListaTips.conectar();
+            PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setInt(1,user);
+            ResultSet rs = ps.executeQuery();
+
+            modeloLista.removeAllElements();
+            while(rs.next()) {
+                modeloLista.addElement(rs.getString("descriptionTip"));
             }
         } catch (SQLException ex) {
             System.out.println("No se puede mostrar :( ");
