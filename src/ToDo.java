@@ -149,7 +149,7 @@ public class ToDo extends JFrame{
         }
     }
     public void actualizarDescripcionTarea(int idTarea, String nuevaDescripcion, int user) throws SQLException {
-        String sql = "UPDATE ToDo SET descriptionToDo=? WHERE idToDo=?";
+        String sql = "UPDATE ToDo SET descriptionToDo=? WHERE idToDo=? ";
 
         try (Connection connection = conectar()) {
             assert connection != null;
@@ -243,21 +243,22 @@ public class ToDo extends JFrame{
                     int fila = e.getFirstRow();
                     int columna = e.getColumn();
                     if (fila == filaNueva && columna == 1) { // Verificar que se haya modificado la celda de la columna deseada
-                        guardarTarea(filaNueva);
+                        guardarTarea(filaNueva, user);
                     }
                 }
             }
         });
     }
 
-    private void guardarTarea(int fila) {
+    private void guardarTarea(int fila, int user) {
         String tarea = TableToDo.getValueAt(fila, 1).toString(); // Índice 1
 
         try (Connection connection = Tip.conectar()) {
             assert connection != null;
-            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO ToDo (descriptionToDo, done) VALUES (?, ?)")) {
+            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO ToDo (descriptionToDo, done, userId) VALUES (?, ?, ?)")) {
                 ps.setString(1, tarea);
                 ps.setInt(2, 0);
+                ps.setInt(3, user);
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Tarea agregada exitosamente");
