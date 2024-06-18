@@ -63,32 +63,44 @@ public class ListaTips extends JFrame {
         int indice = lisTip.getSelectedIndex();
 
         if (indice == -1) {
-            JOptionPane.showMessageDialog(null, "Por favor, selecciona un elemento para eliminar.");
+            JOptionPane.showMessageDialog(null, "Please select an item to delete.");
             return;
         }
 
         String elementoSeleccionado = modeloLista.getElementAt(indice).toString();
-        String sqlSelect = "SELECT TOP 1 idTip FROM Tip WHERE descriptionTip ='"+elementoSeleccionado+"';";
-        System.out.println(sqlSelect);
+        String sqlSelect = "SELECT idTip FROM Tip WHERE descriptionTip = ? AND userId = ?;";
 
-        try (Connection connection = ListaTips.conectar()) {
-            assert connection != null;
-            try (Statement st = connection.createStatement()) {
-                ResultSet rs = st.executeQuery(sqlSelect);
-                rs.next();
-                int idSeleccionado = rs.getInt(1);
+        try (Connection connection = ListaTips.conectar();
+             PreparedStatement psSelect = connection.prepareStatement(sqlSelect)) {
 
-                String sqlDelete = "DELETE FROM Tip WHERE idTip = " + idSeleccionado + ";";
-                System.out.println(sqlSelect);
-                st.executeUpdate(sqlDelete);
-                modeloLista.removeElementAt(indice);
-                JOptionPane.showMessageDialog(null, "Tip eliminado exitosamente");
+            psSelect.setString(1, elementoSeleccionado);
+            psSelect.setInt(2, user);
+            ResultSet rs = psSelect.executeQuery();
+
+            if (rs.next()) {
+                int idSeleccionado = rs.getInt("idTip");
+                String sqlDelete = "DELETE FROM Tip WHERE idTip = ?;";
+
+                try (PreparedStatement psDelete = connection.prepareStatement(sqlDelete)) {
+                    psDelete.setInt(1, idSeleccionado);
+                    int rowsAffected = psDelete.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        modeloLista.removeElementAt(indice);
+                        JOptionPane.showMessageDialog(null, "Tip successfully removed!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to delete tip.");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No tip found for deletion.");
             }
         } catch (SQLException ex) {
-            System.out.println("No se pudo eliminar :( ");
-            JOptionPane.showMessageDialog(null, ex.toString());
+            System.out.println("Error deleting tip: " + ex);
+            JOptionPane.showMessageDialog(null, "Error deleting tip: " + ex.getMessage());
         }
     }
+
 
 
     public ListaTips(int user) {
