@@ -4,8 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.sun.deploy.trace.TraceLevel.UI;
 import static javax.swing.UIManager.getIcon;
 
 public class Recordatorio extends JFrame {
@@ -72,35 +73,53 @@ public class Recordatorio extends JFrame {
         recordatorio.okButton.setBorder(BorderFactory.createEmptyBorder());
     }
 
-    public static int numRegistros() throws SQLException {
-        try (Connection connection = conectar()) {
-            assert connection != null;
-            try (Statement st = connection.createStatement()) {
-                //Obtenemos el numero total de registros y lo convertimos a int
-                ResultSet rs = st.executeQuery("SELECT count(idReminder) FROM Reminder");
-                // Mover al primer resultado (ya que es un solo valor)
-                rs.next();
-                // Obtener y retornar el valor como entero
-                return rs.getInt(1);
+    public static List registroIdReminders(int user) throws SQLException {
+        String sql = "SELECT idReminder FROM Reminder WHERE userId = 1 OR userId = ?";
+        List reminderIds = new ArrayList<>();
+
+        try (Connection connection = conectar();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, user);
+            ResultSet rs= ps.executeQuery();
+            while (rs.next()) {
+                reminderIds.add(rs.getInt("idReminder"));
             }
+            System.out.print(reminderIds);
+            return reminderIds;
         }
+
     }
 
     public static String[] consultaReminder(int user) throws SQLException {
-        try (Connection connection = conectar()) {
-            assert connection != null;
-            try (Statement st = connection.createStatement()) {
-                int numRecordatorio = numRegistros();
-                //Seleccionamos un número aleatorio de id
-                int randomId = (int) (Math.floor(Math.random() * (numRecordatorio - 1 + 1 + 1) + 1));
-                //System.out.println("Numero de randomid:"+randomId);
-                ResultSet r = st.executeQuery("SELECT descriptionReminder,Autor FROM Reminder WHERE idReminder = " + randomId + "AND (userId = 1 OR userId=" + user + " );");
-                r.next();
-                String reminderDescription = r.getString(1);
-                String autorReminder = r.getString(2);
+        String sql = "SELECT descriptionReminder,Autor FROM Reminder WHERE idReminder = ? AND (userId = 1 OR userId= ? );";
+        try (Connection connection = Login.conectar();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            List reminderIds = registroIdReminders(user);
+
+            //Seleccionamos un número aleatorio de id
+            int countIDs = reminderIds.size(); // Contar los elementos en la lista
+            System.out.println("Number of reminders: " + countIDs);
+
+            if (countIDs > 0) { // Asegurarse de que la lista no esté vacía
+                int randomIndex = (int) (Math.random() * countIDs); // Generar un índice aleatorio
+                int randomId = (int) reminderIds.get(randomIndex); // Seleccionar el elemento en la lista con ese índice
+                System.out.println("Randomly selected reminder ID: " + randomId);
+
+                ps.setInt(1, randomId);
+                ps.setInt(2, user);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                String reminderDescription = rs.getString(1);
+                String autorReminder = rs.getString(2);
                 System.out.println(reminderDescription + ", " + autorReminder);
                 return new String[]{reminderDescription, autorReminder};
+            } else {
+                System.out.println("No reminders found for the user.");
+                return null;
             }
+        }catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
     // https://www.youtube.com/watch?v=_cRp1qGVIkU

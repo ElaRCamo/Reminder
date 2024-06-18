@@ -129,6 +129,13 @@ public class ListaTips extends JFrame {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        UIManager.put("OptionPane.background", new Color(234,224,218));
+        UIManager.put("Panel.background", new Color(234,224,218));
+        UIManager.put("OptionPane.messageFont", new Font("Segoe Script", Font.BOLD,15));
+        UIManager.put("OptionPane.messageForeground", new Color(64,39,16));
+        //UIManager.put("OptionPane.informationIcon", new ImageIcon("iconReminders.png"));
+
         reminderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
