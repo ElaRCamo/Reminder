@@ -103,8 +103,6 @@ public class Recordatorio extends JFrame {
             }
         }
     }
-
-
     // https://www.youtube.com/watch?v=_cRp1qGVIkU
 
 

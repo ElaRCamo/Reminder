@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -14,7 +15,6 @@ public class Login extends JFrame{
     private JLabel emailLabel;
     private JLabel passwordLabel;
     static Connection connection;
-
     public int userId;
 
     public static Connection conectar() {
@@ -40,12 +40,17 @@ public class Login extends JFrame{
 
     public Login() throws SQLException {
         setContentPane(loginPanel);
-        setTitle("Login Reminders");
+        setUndecorated(true);
         setSize(500, 500);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+
+
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
+
 
         // Quitar bordes
         emailTextF.setBorder(BorderFactory.createEmptyBorder());
@@ -70,6 +75,13 @@ public class Login extends JFrame{
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+            }
+        });
+
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }

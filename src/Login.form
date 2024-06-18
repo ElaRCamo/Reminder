@@ -59,7 +59,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <background color="-3555399"/>
+                  <background color="-1"/>
                   <focusPainted value="true"/>
                   <font name="ItalicC" size="16" style="1"/>
                   <foreground color="-13754359"/>
