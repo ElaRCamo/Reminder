@@ -71,8 +71,9 @@ public class Tip extends JFrame {
         try (Connection connection = Tip.conectar()) {
             assert connection != null;
             try (Statement st = connection.createStatement()) {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO Tip(descriptionTip) VALUES(?)");
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO Tip(descriptionTip, userId) VALUES(?,?) ");
                 ps.setString(1, tip);
+                ps.setInt(2, user);
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Tip guardado exitosamente");//null se refiere a la posicion del msj

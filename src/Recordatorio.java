@@ -98,13 +98,13 @@ public class Recordatorio extends JFrame {
             List reminderIds = registroIdReminders(user);
 
             //Seleccionamos un número aleatorio de id
-            int countIDs = reminderIds.size(); // Contar los elementos en la lista
-            System.out.println("Number of reminders: " + countIDs);
+            int countIDs = reminderIds.size(); // Contar los elementos
+            //System.out.println("Number of reminders: " + countIDs);
 
             if (countIDs > 0) { // Asegurarse de que la lista no esté vacía
-                int randomIndex = (int) (Math.random() * countIDs); // Generar un índice aleatorio
+                int randomIndex = (int) (Math.random() * countIDs); // índice aleatorio
                 int randomId = (int) reminderIds.get(randomIndex); // Seleccionar el elemento en la lista con ese índice
-                System.out.println("Randomly selected reminder ID: " + randomId);
+                //System.out.println("Randomly selected reminder ID: " + randomId);
 
                 ps.setInt(1, randomId);
                 ps.setInt(2, user);
@@ -112,7 +112,7 @@ public class Recordatorio extends JFrame {
                 rs.next();
                 String reminderDescription = rs.getString(1);
                 String autorReminder = rs.getString(2);
-                System.out.println(reminderDescription + ", " + autorReminder);
+                //System.out.println(reminderDescription + ", " + autorReminder);
                 return new String[]{reminderDescription, autorReminder};
             } else {
                 System.out.println("No reminders found for the user.");
@@ -122,8 +122,6 @@ public class Recordatorio extends JFrame {
             throw new RuntimeException(ex);
         }
     }
-    // https://www.youtube.com/watch?v=_cRp1qGVIkU
-
 
     public Recordatorio(int user) {
 
