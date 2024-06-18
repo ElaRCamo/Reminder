@@ -74,12 +74,11 @@ public class ToDo extends JFrame{
     }
 
     public void consultarTareas(int user) throws SQLException {
-        String sql = "SELECT idToDo, descriptionToDo, done FROM ToDo";
+        String sql = "SELECT idToDo, descriptionToDo, done FROM ToDo WHERE userId = ?";
 
-        try (Connection connection = conectar()) {
-            assert connection != null;
+        try (Connection connection = conectar();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            try (Statement st = connection.createStatement()) {
                 modeloTabla = new DefaultTableModel() {
                     @Override
                     public boolean isCellEditable(int row, int column) {
@@ -95,7 +94,8 @@ public class ToDo extends JFrame{
                 TableToDo.getColumnModel().getColumn(0).setPreferredWidth(0);
                 TableToDo.getColumnModel().getColumn(0).setResizable(false);
 
-                ResultSet rs = st.executeQuery(sql);
+            ps.setInt(1, user);
+            ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
                     int idTarea = rs.getInt("idToDo");
@@ -143,7 +143,6 @@ public class ToDo extends JFrame{
                         }
                     }
                 });
-            }
         } catch (SQLException ex) {
             System.out.println("No se puede mostrar :( ");
             JOptionPane.showMessageDialog(null, ex.toString());
