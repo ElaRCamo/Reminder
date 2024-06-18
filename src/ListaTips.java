@@ -17,6 +17,7 @@ public class ListaTips extends JFrame {
     private JButton xButton;
     private JScrollPane sPanel;
     DefaultListModel modeloLista = new DefaultListModel();
+    private int user;
 
     public static Connection conectar() {
         // Información de conexión a tu base de datos SQL Server
@@ -39,7 +40,7 @@ public class ListaTips extends JFrame {
         }
     }
 
-    public void  cargarTips() throws SQLException{
+    public void  cargarTips(int user) throws SQLException{
         lisTip.setModel(modeloLista);
         String sql= "SELECT descriptionTip FROM Tip;";
         //System.out.println(sql);
@@ -57,7 +58,7 @@ public class ListaTips extends JFrame {
         }
     }
 
-    public void eliminarTip() throws SQLException {
+    public void eliminarTip(int user) throws SQLException {
         int indice = lisTip.getSelectedIndex();
 
         if (indice == -1) {
@@ -89,7 +90,9 @@ public class ListaTips extends JFrame {
     }
 
 
-    public ListaTips() {
+    public ListaTips(int user) {
+        this.user = user;
+
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
         tablaPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         toDoButton.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
@@ -109,7 +112,7 @@ public class ListaTips extends JFrame {
         setPreferredSize(new Dimension(300,600));
 
         try {
-            cargarTips();
+            cargarTips(user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -118,7 +121,7 @@ public class ListaTips extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ListaTips.this.setVisible(false);
                 try {
-                    Recordatorio.consultarRecordatorios();
+                    Recordatorio.consultarRecordatorios(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -130,7 +133,7 @@ public class ListaTips extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ListaTips.this.setVisible(false);
                 try {
-                    Tip.guardarTips();
+                    Tip.guardarTips(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -147,7 +150,7 @@ public class ListaTips extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    eliminarTip();
+                    eliminarTip(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -158,7 +161,7 @@ public class ListaTips extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ListaTips.this.setVisible(false);
                 try {
-                    ToDo.gestionarListaTareas();
+                    ToDo.gestionarListaTareas(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -23,6 +23,8 @@ public class Recordatorio extends JFrame {
     ResultSet r; //ejecutar query
     static String reminderDescription;
     private String path;
+    private int user; // Campo para guardar el userId
+
 
 
 
@@ -47,8 +49,9 @@ public class Recordatorio extends JFrame {
         }
     }
 
-    public static void consultarRecordatorios() throws SQLException {
-        Recordatorio recordatorio = new Recordatorio();
+    public static void consultarRecordatorios(int user) throws SQLException {
+
+        Recordatorio recordatorio = new Recordatorio(user);
         recordatorio.setContentPane(recordatorio.mainPanel);
         recordatorio.setTitle("R E M I N D E R");
         recordatorio.setSize(500, 500);
@@ -57,7 +60,8 @@ public class Recordatorio extends JFrame {
         recordatorio.setLocationRelativeTo(null);
         recordatorio.setResizable(false);
         //mandar reminder y autor
-        String[] reminderValues = Recordatorio.consultaReminder(1);
+        String[] reminderValues = Recordatorio.consultaReminder(user);
+        //String[] reminderValues = Recordatorio.consultaReminder(1);
         String reminderDescription = reminderValues[0];
         String autorReminder = reminderValues[1];
         recordatorio.phraseText.setText(reminderDescription);
@@ -82,7 +86,7 @@ public class Recordatorio extends JFrame {
         }
     }
 
-    public static String[] consultaReminder(int i) throws SQLException {
+    public static String[] consultaReminder(int user) throws SQLException {
         try (Connection connection = conectar()) {
             assert connection != null;
             try (Statement st = connection.createStatement()) {
@@ -90,7 +94,7 @@ public class Recordatorio extends JFrame {
                 //Seleccionamos un número aleatorio de id
                 int randomId = (int) (Math.floor(Math.random() * (numRecordatorio - 1 + 1 + 1) + 1));
                 //System.out.println("Numero de randomid:"+randomId);
-                ResultSet r = st.executeQuery("SELECT descriptionReminder,Autor FROM Reminder WHERE idReminder = " + randomId + ";");
+                ResultSet r = st.executeQuery("SELECT descriptionReminder,Autor FROM Reminder WHERE idReminder = " + randomId + "AND (userId = 1 OR userId=" + user + " );");
                 r.next();
                 String reminderDescription = r.getString(1);
                 String autorReminder = r.getString(2);
@@ -104,7 +108,10 @@ public class Recordatorio extends JFrame {
     // https://www.youtube.com/watch?v=_cRp1qGVIkU
 
 
-    public Recordatorio() {
+    public Recordatorio(int user) {
+
+        this.user = user; // Guardar userId
+
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
 
         reminderPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -155,7 +162,7 @@ public class Recordatorio extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Recordatorio.this.setVisible(false);
                 try {
-                    Tip.verTips();
+                    Tip.verTips(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -172,7 +179,7 @@ public class Recordatorio extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Recordatorio.this.setVisible(false);
                 try {
-                    ToDo.gestionarListaTareas();
+                    ToDo.gestionarListaTareas(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

@@ -20,7 +20,7 @@ public class Tip extends JFrame {
     Statement st; //para SELECT
     ResultSet r; //ejecutar query
     DefaultListModel mod = new DefaultListModel();
-   int x, y;
+    private int user; // Campo para guardar el userId
 
     public static Connection conectar() {
         // Información de conexión a tu base de datos SQL Server
@@ -43,8 +43,8 @@ public class Tip extends JFrame {
         }
     }
 
-    public static void guardarTips() throws SQLException {
-        Tip newTip = new Tip();
+    public static void guardarTips(int user) throws SQLException {
+        Tip newTip = new Tip(user);
         newTip.setContentPane(newTip.panelTip);
         newTip.setTitle("Save a tip");
         newTip.setSize(500, 500);
@@ -53,8 +53,8 @@ public class Tip extends JFrame {
         newTip.setLocationRelativeTo(null);
     }
 
-    public static void verTips() throws SQLException {
-        ListaTips newTip = new ListaTips();
+    public static void verTips(int user) throws SQLException {
+        ListaTips newTip = new ListaTips(user);
         newTip.setContentPane(newTip.listPanel);
         newTip.setTitle("tips Guardados");
         newTip.setSize(500, 500);
@@ -64,7 +64,7 @@ public class Tip extends JFrame {
         newTip.setResizable(false);
     }
 
-    public void  guardarTip() throws SQLException{
+    public void  guardarTip(int user) throws SQLException{
 
         String tip = textTip.getText();
         System.out.println(tip);
@@ -87,7 +87,8 @@ public class Tip extends JFrame {
     }
 
 
-    public Tip() {
+    public Tip(int user) {
+        this.user = user; // Guardar userId
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
 
@@ -111,7 +112,7 @@ public class Tip extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Tip.this.setVisible(false);
                 try {
-                    Recordatorio.consultarRecordatorios();
+                    Recordatorio.consultarRecordatorios(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -122,7 +123,7 @@ public class Tip extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    guardarTip();
+                    guardarTip(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -134,7 +135,7 @@ public class Tip extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Tip.this.setVisible(false);
                 try {
-                    verTips();
+                    verTips(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -151,7 +152,7 @@ public class Tip extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Tip.this.setVisible(false);
                 try {
-                    ToDo.gestionarListaTareas();
+                    ToDo.gestionarListaTareas(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

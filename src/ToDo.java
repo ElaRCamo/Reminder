@@ -32,6 +32,7 @@ public class ToDo extends JFrame{
     private JButton done;
     private boolean checked;
     DefaultTableModel modeloTabla = new DefaultTableModel();
+    private int user;
 
     public static Connection conectar() {
         String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
@@ -47,10 +48,10 @@ public class ToDo extends JFrame{
         }
     }
 
-    public static void gestionarListaTareas() throws SQLException {
+    public static void gestionarListaTareas(int user) throws SQLException {
         SwingUtilities.invokeLater(() -> {
             try {
-                ToDo toDo = new ToDo();
+                ToDo toDo = new ToDo(user);
                 toDo.setContentPane(toDo.toDoPanel);
                 toDo.setSize(500, 500);
                 toDo.setVisible(true);
@@ -72,7 +73,7 @@ public class ToDo extends JFrame{
         tc.setCellRenderer(new CheckBoxRenderer());
     }
 
-    public void consultarTareas() throws SQLException {
+    public void consultarTareas(int user) throws SQLException {
         String sql = "SELECT idToDo, descriptionToDo, done FROM ToDo";
 
         try (Connection connection = conectar()) {
@@ -123,7 +124,7 @@ public class ToDo extends JFrame{
                                 Boolean checked = (Boolean) TableToDo.getValueAt(row, column);
                                 // Llamar al método actualizarTareas para guardar el cambio en la base de datos
                                 try {
-                                    actualizarTareas(row, checked);
+                                    actualizarTareas(row, checked, user);
                                 } catch (SQLException ex) {
                                     System.out.println("Error al actualizar la tarea: " + ex.getMessage());
                                 }
@@ -132,7 +133,7 @@ public class ToDo extends JFrame{
                                 int idTarea = (int) TableToDo.getValueAt(row, 0); // Obtener el ID de la tarea
                                 // Llamar al método actualizarTareas para guardar el cambio en la base de datos
                                 try {
-                                    actualizarDescripcionTarea(idTarea, newDescription);
+                                    actualizarDescripcionTarea(idTarea, newDescription, user);
                                 } catch (SQLException ex) {
                                     System.out.println("Error al actualizar la descripción de la tarea: " + ex.getMessage());
                                 }
@@ -148,7 +149,7 @@ public class ToDo extends JFrame{
             JOptionPane.showMessageDialog(null, ex.toString());
         }
     }
-    public void actualizarDescripcionTarea(int idTarea, String nuevaDescripcion) throws SQLException {
+    public void actualizarDescripcionTarea(int idTarea, String nuevaDescripcion, int user) throws SQLException {
         String sql = "UPDATE ToDo SET descriptionToDo=? WHERE idToDo=?";
 
         try (Connection connection = conectar()) {
@@ -161,7 +162,7 @@ public class ToDo extends JFrame{
         }
     }
 
-    public void actualizarTareas(int fila, boolean checked) throws SQLException {
+    public void actualizarTareas(int fila, boolean checked, int user) throws SQLException {
         String tarea = TableToDo.getValueAt(fila, 1).toString(); // Índice 1
         int hecho = checked ? 1 : 0; // Convertir el estado del checkbox a entero (1 si está marcado, 0 si no lo está)
 
@@ -176,7 +177,7 @@ public class ToDo extends JFrame{
                 int idTarea = Integer.parseInt(this.TableToDo.getValueAt(fila, 0).toString()); // Índice 0 para el ID
                 ps.setInt(3, idTarea);
                 ps.executeUpdate();
-                consultarTareas();
+                consultarTareas(user);
             } catch (SQLException ex) {
                 System.out.println("No se puede actualizar :( ");
                 JOptionPane.showMessageDialog(null, ex.toString());
@@ -184,7 +185,7 @@ public class ToDo extends JFrame{
         }
     }
 
-    public void eliminarTareas() throws SQLException {
+    public void eliminarTareas(int user) throws SQLException {
 
         modeloTabla = (DefaultTableModel) TableToDo.getModel();
         int fila = TableToDo.getSelectedRow();
@@ -211,7 +212,7 @@ public class ToDo extends JFrame{
         }
     }
 
-    public static int numTareas() throws SQLException {
+    public static int numTareas(int user) throws SQLException {
         try (Connection connection = conectar()) {
             assert connection != null;
             try (Statement st = connection.createStatement()) {
@@ -225,7 +226,7 @@ public class ToDo extends JFrame{
         }
     }
 
-    public void agregarTareas() throws SQLException {
+    public void agregarTareas(int user) throws SQLException {
         modeloTabla = (DefaultTableModel) TableToDo.getModel();
 
         // Añadir una fila con los valores correspondientes
@@ -261,7 +262,7 @@ public class ToDo extends JFrame{
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(null, "Tarea agregada exitosamente");
-                consultarTareas();
+                consultarTareas(user);
             } catch (SQLException ex) {
                 System.out.println("No se pudo agregar :( ");
                 JOptionPane.showMessageDialog(null, ex.toString());
@@ -272,7 +273,9 @@ public class ToDo extends JFrame{
         }
     }
 
-    public ToDo() throws SQLException {
+    public ToDo(int user) throws SQLException {
+        this.user = user;
+
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
 
 
@@ -300,7 +303,7 @@ public class ToDo extends JFrame{
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
         try {
-            consultarTareas();
+            consultarTareas(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -347,7 +350,7 @@ public class ToDo extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 ToDo.this.setVisible(false);
                 try {
-                    Recordatorio.consultarRecordatorios();
+                    Recordatorio.consultarRecordatorios(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -358,7 +361,7 @@ public class ToDo extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 ToDo.this.setVisible(false);
                 try {
-                    Tip.verTips();
+                    Tip.verTips(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -383,7 +386,7 @@ public class ToDo extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    eliminarTareas();
+                    eliminarTareas(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -393,7 +396,7 @@ public class ToDo extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    agregarTareas();
+                    agregarTareas(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

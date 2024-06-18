@@ -10,8 +10,7 @@ public class Main extends JFrame{
     }
     
     public static void main(String[] args) throws SQLException {
-            Recordatorio.consultarRecordatorios();
-
+        new Login();
 }
 
 }
