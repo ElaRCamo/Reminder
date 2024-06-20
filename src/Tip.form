@@ -65,7 +65,7 @@
               <background color="-1"/>
               <font name="Segoe Print" size="16" style="1"/>
               <foreground color="-14477559"/>
-              <text value="Tip para tu yo del futuro..."/>
+              <text value="Tip for your future self..."/>
             </properties>
           </component>
           <component id="d2bc4" class="javax.swing.JTextArea" binding="textTip">

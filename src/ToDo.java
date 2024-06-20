@@ -185,7 +185,6 @@ public class ToDo extends JFrame{
     }
 
     public void eliminarTareas(int user) throws SQLException {
-
         modeloTabla = (DefaultTableModel) TableToDo.getModel();
         int fila = TableToDo.getSelectedRow();
 

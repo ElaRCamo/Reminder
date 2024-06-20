@@ -19,14 +19,13 @@ public class Recordatorio extends JFrame {
     JTextField autorText;
     private JLabel iconTip;
     private JButton xButton;
+    private JButton btnMoreReminder;
     static Connection connection;
     public Statement st; //para SELECT
     ResultSet r; //ejecutar query
     static String reminderDescription;
     private String path;
     private int user; // Campo para guardar el userId
-
-
 
 
     public static Connection conectar() {
@@ -195,6 +194,17 @@ public class Recordatorio extends JFrame {
                 Recordatorio.this.setVisible(false);
                 try {
                     ToDo.gestionarListaTareas(user);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        btnMoreReminder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Recordatorio.this.setVisible(false);
+                try {
+                    NewReminder.saveNewReminder(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

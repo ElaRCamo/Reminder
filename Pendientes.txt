@@ -17,6 +17,9 @@ X   7. Agregar estilo al checkbox. Se agrega clase pero no funciona. (27/03/2024
 ✓   14 Cambiar icono del ejecutable(08/04/2024)
     15. Ocultar la columna del id en TODO o aplicar el 12
     16. Aveces al agregar un nuevo elemento a ToDo agrega 4 celdas vacias
+    17. Contraseña no visible
+    18. Aceptar nombre de usuario 
+    19. Agregar reminders 
    
 Tablas: 
 - ToDo
@@ -24,3 +27,12 @@ Tablas:
 - Tip
 - Reminder
 
+
+l22141412@queretaro.tecnm.mx
+
+-Stand before the people you fear and speak your mind – even if your voice shakes.,Maggie Kuhn
+-It’s a toxic desire to try to be perfect. I realized later in life that the challenge is not to be perfect. It’s to be whole.,Jane Fonda
+-Vitality shows not only in the ability to persist but in the ability to start over.,F. Scott Fitzgerald
+-The most common way people give up their power is by thinking they don’t have any., Alice Walker
+-Love yourself first and everything else falls into line.,Lucille Ball
+-In three words I can sum up everything I've learned about life: It goes on.,Robert Frost
