@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -47,9 +48,27 @@ public class NewReminder extends JFrame{
         newReminder.setVisible(true);
         newReminder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newReminder.setLocationRelativeTo(null);
+        newReminder.setResizable(false);
     }
 
     public NewReminder(int user) {
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
+
+        //Botones
+        newAutorText.setBorder(BorderFactory.createEmptyBorder());
+        saveRButton.setBorder(BorderFactory.createEmptyBorder());
+        btnGoBack.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
+        btnReadReminder.setBorder(new RoundBorder(new Color(234,224,218), 60,20));
+
+        UIManager.put("OptionPane.background", new Color(234,224,218));
+        UIManager.put("Panel.background", new Color(234,224,218));
+        UIManager.put("OptionPane.messageFont", new Font("Segoe Script", Font.BOLD,18));
+        UIManager.put("OptionPane.messageForeground", new Color(64,39,16));
+
+        //Para quitar el borde donde se ubica el tittle
+        setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
 
         btnGoBack.addActionListener(new ActionListener() {

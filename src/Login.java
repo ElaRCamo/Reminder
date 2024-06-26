@@ -66,6 +66,7 @@ public class Login extends JFrame{
 
                 try {
                     Integer user = readUser(email, password);
+                    Login.this.setVisible(false);
 
                     if (user != null) {
                         Recordatorio.consultarRecordatorios(user);

@@ -95,7 +95,8 @@
                   <font name="Segoe Print" size="14" style="0"/>
                   <foreground color="-7895909"/>
                   <lineWrap value="true"/>
-                  <text value=""/>
+                  <text value="Add a reminder"/>
+                  <toolTipText value="Write a reminder"/>
                   <wrapStyleWord value="true"/>
                 </properties>
               </component>
@@ -112,13 +113,14 @@
                   <alignmentY value="0.0"/>
                   <background color="-1"/>
                   <font name="Segoe Print" size="16" style="0"/>
-                  <text value=""/>
+                  <text value="Author"/>
+                  <toolTipText value="Do you know the author?"/>
                 </properties>
               </component>
               <component id="ebd6e" class="javax.swing.JButton" binding="saveRButton">
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                    <minimum-size width="380" height="30"/>
+                    <minimum-size width="-1" height="30"/>
                     <preferred-size width="-1" height="30"/>
                     <maximum-size width="-1" height="30"/>
                   </grid>
