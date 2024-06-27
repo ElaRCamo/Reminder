@@ -2,9 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class NewReminder extends JFrame{
     private JPanel newReminderPanel;
@@ -14,7 +12,6 @@ public class NewReminder extends JFrame{
     private JTextArea newPhraseText;
     private JTextField newAutorText;
     private JButton saveRButton;
-    private JButton btnMoreReminder;
     private JLabel iconTip;
     private JButton xButton;
     private JLabel saveLabel;
@@ -51,6 +48,33 @@ public class NewReminder extends JFrame{
         newReminder.setResizable(false);
     }
 
+    public void  guardarReminder(int user) throws SQLException{
+
+        String reminder = newPhraseText.getText();
+        String author = newAutorText.getText();
+
+        //System.out.println(" reminder:"+reminder +" autor:"+ author);
+        try (Connection connection = Tip.conectar()) {
+            assert connection != null;
+            try (Statement st = connection.createStatement()) {
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO Reminder(descriptionReminder, Autor,userId) VALUES(?,?,?) ");
+                ps.setString(1, reminder);
+                ps.setString(2, author);
+                ps.setInt(3, user);
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Reminder saved successfully");//null se refiere a la posicion del msj
+                newPhraseText.setText("");//Para que el espacio quede vacio
+                newAutorText.setText("");
+
+            } catch (SQLException ex) {
+                System.out.println("Could not save :(");
+                JOptionPane.showMessageDialog(null, ex.toString());
+                throw new RuntimeException(ex);
+            }
+        }
+    }
+
     public NewReminder(int user) {
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
@@ -70,6 +94,8 @@ public class NewReminder extends JFrame{
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
+        newAutorText.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
 
         btnGoBack.addActionListener(new ActionListener() {
             @Override
@@ -80,6 +106,33 @@ public class NewReminder extends JFrame{
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
+            }
+        });
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+            }
+        });
+        saveRButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    guardarReminder(user);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        btnReadReminder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NewReminder.this.setVisible(false);
+                try {
+                    ListReminders.gestionarReminders(user);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

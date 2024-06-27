@@ -89,10 +89,24 @@ public class ToDo extends JFrame{
                 modeloTabla.addColumn("Task");
                 modeloTabla.addColumn("Done");
                 TableToDo.setModel(modeloTabla);
+
+                // Desactivar el ajuste automático inicial
+                TableToDo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // Activar el ajuste automático después de ajustar el ancho de las columnas
+                TableToDo.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+                //Ocultar columna id
                 TableToDo.getColumnModel().getColumn(0).setMaxWidth(0);
                 TableToDo.getColumnModel().getColumn(0).setMinWidth(0);
                 TableToDo.getColumnModel().getColumn(0).setPreferredWidth(0);
                 TableToDo.getColumnModel().getColumn(0).setResizable(false);
+
+                //Columna 2
+                TableToDo.getColumnModel().getColumn(2).setMaxWidth(50);
+                TableToDo.getColumnModel().getColumn(2).setMinWidth(50);
+                TableToDo.getColumnModel().getColumn(2).setPreferredWidth(50);
+                TableToDo.getColumnModel().getColumn(2).setResizable(false);
+
 
             ps.setInt(1, user);
             ResultSet rs = ps.executeQuery();
@@ -277,7 +291,6 @@ public class ToDo extends JFrame{
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
 
-
         // Personalizar el encabezado de la tabla
         JTableHeader header = TableToDo.getTableHeader();
         header.setBackground(new java.awt.Color(255, 255, 255)); // Cambiar color de fondo
@@ -306,43 +319,10 @@ public class ToDo extends JFrame{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-        TableToDo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Desactivar el ajuste automático inicial
-
-        // Ajustar el ancho de las columnas al contenido
-        for (int column = 0; column < TableToDo.getColumnCount(); column++) {
-            TableColumn tableColumn = TableToDo.getColumnModel().getColumn(column);
-            int preferredWidth = tableColumn.getMinWidth();
-            int maxWidth = tableColumn.getMaxWidth();
-
-            for (int row = 0; row < TableToDo.getRowCount(); row++) {
-                TableCellRenderer cellRenderer = TableToDo.getCellRenderer(row, column);
-                Component c = TableToDo.prepareRenderer(cellRenderer, row, column);
-                int width = c.getPreferredSize().width + TableToDo.getIntercellSpacing().width;
-                preferredWidth = Math.max(preferredWidth, width);
-
-                // No permitir que el ancho de la columna exceda su tamaño máximo
-                if (preferredWidth >= maxWidth) {
-                    preferredWidth = maxWidth;
-                    break;
-                }
-            }
-
-            tableColumn.setPreferredWidth(preferredWidth);
-        }
-        // Activar el ajuste automático después de ajustar el ancho de las columnas
-        TableToDo.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-
         sPanel.setBorder(BorderFactory.createEmptyBorder());
         sPanel.getVerticalScrollBar().setUI(new CustomScrollBar());
         sPanel.getHorizontalScrollBar().setUI(new CustomScrollBar());
 
-        //Ocultar columna id
-        TableToDo.getColumnModel().getColumn(0).setMaxWidth(0);
-        TableToDo.getColumnModel().getColumn(0).setMinWidth(0);
-        TableToDo.getColumnModel().getColumn(0).setPreferredWidth(0);
-        TableToDo.getColumnModel().getColumn(0).setResizable(false);
 
         reminderButton.addActionListener(new ActionListener() {
             @Override

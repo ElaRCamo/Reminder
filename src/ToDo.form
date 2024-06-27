@@ -120,12 +120,12 @@
                       <focusable value="false"/>
                       <font name="Segoe Print" size="14" style="0"/>
                       <foreground color="-12572912"/>
-                      <gridColor color="-3555399"/>
+                      <gridColor color="-1384230"/>
                       <minimumSize width="480" height="400"/>
                       <preferredScrollableViewportSize width="480" height="400"/>
                       <rowHeight value="30"/>
                       <rowMargin value="1"/>
-                      <selectionBackground color="-3555399"/>
+                      <selectionBackground color="-1387547"/>
                       <selectionForeground color="-13754359"/>
                       <showHorizontalLines value="false"/>
                       <showVerticalLines value="false"/>
