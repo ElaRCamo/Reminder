@@ -14,29 +14,24 @@ public class Login extends JFrame{
     private JTextField passwordTF;
     private JLabel emailLabel;
     private JLabel passwordLabel;
+    private JButton btnRegister;
     static Connection connection;
     public int userId;
 
     public static Connection conectar() {
-        // Información de conexión a tu base de datos SQL Server
         String url = "jdbc:jtds:sqlserver://localhost:1433/Reminders;instance=MSSQLSERVER";
         String user = "sa";
         String password = "Grammer1";
         try {
-            // Cargar el controlador JDBC
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            // Establecer la conexión
-            //Connection connection = DriverManager.getConnection(url, user, password);
             connection = DriverManager.getConnection(url, user, password);
-            //System.out.println("Conexión exitosa");
-            // Devolver la conexión
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
-            // Manejar errores de conexión
             e.printStackTrace();
-            return null; // Retorna null en caso de error
+            return null;
         }
     }
+
 
     public Login() throws SQLException {
         setContentPane(loginPanel);
@@ -47,15 +42,14 @@ public class Login extends JFrame{
         setLocationRelativeTo(null);
         setResizable(false);
 
-
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("iconReminders.png")));
 
-
         // Quitar bordes
-        emailTextF.setBorder(BorderFactory.createEmptyBorder());
-        passwordTF.setBorder(BorderFactory.createEmptyBorder());
+        emailTextF.setBorder(BorderFactory.createEmptyBorder(5,10,5,5));
+        passwordTF.setBorder(BorderFactory.createEmptyBorder(5,10,5,5));
         loginButton.setBorder(BorderFactory.createEmptyBorder());
+        btnRegister.setBorder(BorderFactory.createEmptyBorder());
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +77,15 @@ public class Login extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+        btnRegister.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Login.this.setVisible(false);
+
+                /******error aqui*************/
+                new Register();
             }
         });
     }
