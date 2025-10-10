@@ -1,4 +1,3 @@
-````markdown
 # Reminder — App de recordatorios (CRUD)
 
 Aplicación Java para crear, leer, actualizar y eliminar recordatorios y guardar “tips” o cosas por hacer (CRUD).
