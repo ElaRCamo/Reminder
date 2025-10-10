@@ -1,7 +1,8 @@
 ````markdown
 # Reminder — App de recordatorios (CRUD)
 
-Aplicación Java para crear, leer, actualizar y eliminar recordatorios y guardar “tips” o cosas por hacer (CRUD). Base simple para practicar arquitectura por capas, persistencia y empaquetado.
+Aplicación Java para crear, leer, actualizar y eliminar recordatorios y guardar “tips” o cosas por hacer (CRUD).
+Base simple para practicar arquitectura por capas, persistencia y empaquetado.
 
 ## Características
 
@@ -18,16 +19,6 @@ Aplicación Java para crear, leer, actualizar y eliminar recordatorios y guardar
 | ![Lista](docs/images/lista.png) | ![Formulario](docs/images/form.png) | ![Detalle](docs/images/detalle.png) |
 
 ![Logo](docs/images/logo.png)
-
-## Arquitectura
-
-```mermaid
-flowchart TB
-  UI[UI (Swing/JavaFX/AWT)] --> SVC[Servicio (lógica)]
-  SVC --> DAO[(DAO/Repositorio)]
-  DAO --> DB[(SQL Server - opcional)]
-  SVC --> MEM[(In-Memory)]
-```
 
 ## Requisitos
 
