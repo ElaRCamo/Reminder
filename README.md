@@ -12,14 +12,6 @@ Base simple para practicar arquitectura por capas, persistencia y empaquetado.
 - Estructura preparada para capas UI → Servicio → DAO → DB.
 - Lista para crecer con pruebas y CI.
 
-## Demo / Capturas
-
-| Lista principal | Crear/Editar | Detalle |
-|---|---|---|
-| ![Lista](docs/images/lista.png) | ![Formulario](docs/images/form.png) | ![Detalle](docs/images/detalle.png) |
-
-![Logo](docs/images/logo.png)
-
 ## Requisitos
 
 * Java 8+ (recomendado 11 o 17).
