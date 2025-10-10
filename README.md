@@ -10,25 +10,6 @@
 
 Aplicación Java para crear, leer, actualizar y eliminar recordatorios y guardar “tips” o cosas por hacer (CRUD). Base simple para practicar arquitectura por capas, persistencia y empaquetado.
 
-## Tabla de contenidos
-
-- [Características](#características)
-- [Demo / Capturas](#demo--capturas)
-- [Arquitectura](#arquitectura)
-- [Requisitos](#requisitos)
-- [Instalación](#instalación)
-  - [Opción A: IntelliJ IDEA](#opción-a-intellij-idea)
-  - [Opción B: Compilar por consola](#opción-b-compilar-por-consola)
-- [Configuración (BD opcional)](#configuración-bd-opcional)
-- [Uso](#uso)
-- [Estructura del repositorio](#estructura-del-repositorio)
-- [Roadmap](#roadmap)
-- [Guía para contribuir](#guía-para-contribuir)
-- [Código de conducta](#código-de-conducta)
-- [Licencia](#licencia)
-- [Agradecimientos](#agradecimientos)
-- [Autoría](#autoría)
-
 ## Características
 
 - Recordatorios/Tareas con operaciones CRUD.
@@ -53,7 +34,7 @@ flowchart TB
   SVC --> DAO[(DAO/Repositorio)]
   DAO --> DB[(SQL Server - opcional)]
   SVC --> MEM[(In-Memory)]
-````
+```
 
 ## Requisitos
 
