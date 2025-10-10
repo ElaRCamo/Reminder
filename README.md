@@ -61,46 +61,6 @@ flowchart TB
 * IntelliJ IDEA o JDK con `javac/java`.
 * Opcional: SQL Server local o en contenedor.
 
-## Instalación
-
-### Opción A: IntelliJ IDEA
-
-```bash
-git clone https://github.com/ElaRCamo/Reminder.git
-cd Reminder
-```
-
-Abrir el proyecto en IntelliJ y ejecutar la clase principal.
-
-### Opción B: Compilar por consola
-
-```bash
-javac -d out $(find src -name "*.java")
-java -cp out Main
-```
-
-Con driver jTDS en el classpath:
-
-```bash
-java -cp "out:jtds-1.3.1.jar" Main
-```
-
-## Configuración (BD opcional)
-
-Archivo `config.properties`:
-
-```properties
-db.driver=net.sourceforge.jtds.jdbc.Driver
-db.url=jdbc:jtds:sqlserver://localhost:1433/ReminderDB
-db.user=sa
-db.password=TuPasswordSegura
-```
-
-Contenedor de SQL Server para desarrollo:
-
-```bash
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=TuPassword123!" -p 1433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server:2022-latest
-```
 
 ## Uso
 
@@ -122,27 +82,6 @@ Reminder/
 └─ README.md
 ```
 
-## Roadmap
-
-* [ ] Empaquetado ejecutable (JAR con `Main-Class`).
-* [ ] Pruebas (JUnit + Mockito).
-* [ ] Interfaz `Repository` con implementaciones in-memory y SQL.
-* [ ] UI moderna con JavaFX o cliente web.
-* [ ] CI en GitHub Actions (build + tests).
-* [ ] Exportación/Importación (CSV/JSON).
-* [ ] Internacionalización (i18n).
-
-## Guía para contribuir
-
-1. Haz un fork y crea una rama desde `master` (`feat/mi-aporte`).
-2. Usa commits descriptivos.
-3. Añade pruebas si modificas lógica de negocio o DAO.
-4. Abre un Pull Request con descripción y capturas si aplica.
-
-## Código de conducta
-
-Se promueve un entorno de respeto y colaboración. Puedes incluir `CODE_OF_CONDUCT.md` basado en Contributor Covenant.
-
 ## Licencia
 
 MIT. Consulta el archivo `LICENSE`.
@@ -155,8 +94,5 @@ MIT. Consulta el archivo `LICENSE`.
 
 ## Autoría
 
-ElaRCamo
+ElaRCamo — Application that gives you reminders and you can save tips and things to do (CRUD).
 
-```
-::contentReference[oaicite:0]{index=0}
-```
