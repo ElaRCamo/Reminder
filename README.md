@@ -1,13 +1,6 @@
 ````markdown
 # Reminder — App de recordatorios (CRUD)
 
-[![Estado](https://img.shields.io/badge/estado-activo-8a2be2)]()
-[![Hecho%20con](https://img.shields.io/badge/hecho_con-Java-007396)]()
-[![Lenguaje%20principal](https://img.shields.io/github/languages/top/ElaRCamo/Reminder)]()
-[![Commits](https://img.shields.io/github/commit-activity/m/ElaRCamo/Reminder)]()
-[![Issues](https://img.shields.io/github/issues/ElaRCamo/Reminder)]()
-[![Licencia](https://img.shields.io/badge/licencia-MIT-00aa00)]()
-
 Aplicación Java para crear, leer, actualizar y eliminar recordatorios y guardar “tips” o cosas por hacer (CRUD). Base simple para practicar arquitectura por capas, persistencia y empaquetado.
 
 ## Características
